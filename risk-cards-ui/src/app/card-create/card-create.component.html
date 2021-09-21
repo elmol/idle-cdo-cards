@@ -1,0 +1,53 @@
+<div class="card" >
+  <div class="card-header l-bg-blue-dark text-center" > Idle CDO Risk Cards </div>
+  <div class="card-body">
+
+    <div class="card">
+      <div class="card-body row text-center">
+        <div class="col">
+          <div class="text-value-xl"> <h2>{{ exposure | number: "1.0-0" }}%</h2></div>
+          <div class="text-uppercase text-muted small">risk</div>
+        </div>
+        <div class="vr"></div>
+        <div class="col">
+          <div class="text-value-xl"> <h2>{{ apr | number: "1.2-2" }}%</h2></div>
+          <div class="text-uppercase text-muted small">APR</div>
+        </div>
+      </div>
+    </div>
+
+    <form
+      [formGroup]="cardForm"
+      (ngSubmit)="submitForm()"
+    >
+      <div class="form-group custom-ngx-slider">
+        <ngx-slider
+          formControlName="exposure"
+          [(value)]="exposure"
+          [options]="options"
+          (userChange)="onUserChange($event)"
+          class="form-control-sm"
+        >
+        </ngx-slider>
+      </div>
+
+      <div class="form-group">
+        <label class="form-control-sm">
+          Deposit amount:
+        </label>
+        <div class="input-group">
+          <input
+            formControlName="amount"
+            type="text"
+            class="form-control form-control-sm"
+            placeholder="0.00"
+          />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-sm btn-primary btn-block">Mint</button>
+      </div>
+    </form>
+  </div>
+</div>

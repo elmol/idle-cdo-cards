@@ -1,0 +1,37 @@
+<div class=col>
+<div class="card l-bg-blue-dark" style="width: 24rem;">
+  <div class="card-statistic-3 p-4">
+      <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
+
+      <div class="row align-items-center mb-1 d-flex">
+        <div class="col-8">
+            <h2 class="card-title mb-0">#{{tokenId}}</h2>
+        </div>
+        <div class="col-4 text-right">
+          <button type="button" class="btn btn-primary btn-sm" (click)="onBurn()">Burn</button>
+       </div>
+      </div>
+
+      <div class="row align-items-center mb-1 d-flex">
+        <div class="col-12 text-center">
+           <h1>{{apr | number:'1.2-2'}}%</h1>
+           <div class="text-uppercase text-muted small">APR</div>
+        </div>
+      </div>
+
+      <div class="row align-items-center mb-1 d-flex">
+          <div class="col-6 text-left">
+              <h3>{{ exposure | number:'1.0-0' }}% </h3>
+              <div class="text-uppercase text-muted small">RISK</div>
+          </div>
+          <div class="col-6 text-right">
+              <h3>{{ amount }}</h3>
+              <div class="text-uppercase text-muted small">AMOUNT</div>
+          </div>
+      </div>
+      <div class="progress mt-1 " data-height="25" style="height: 8px;">
+          <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: {{ exposure | number:'1.0-0' }}%;"></div>
+      </div>
+    </div>
+</div>
+</div>

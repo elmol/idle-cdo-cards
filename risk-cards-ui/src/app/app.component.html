@@ -1,0 +1,23 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand mr-auto" href="#">
+    <img src="../favicon.ico" alt="Idle Risk Cards" width="30" height="24">
+  </a>
+</nav>
+
+
+<div class="container" style="width: 24rem;">
+    <app-card-create (cardCreated)="handleCardCreate($event)" > </app-card-create>
+</div>
+
+<div class="d-flex container-fluid">
+    <div class="row">
+    <app-card
+      *ngFor="let card of cards | async"
+      [tokenId]="card.tokenId"
+      [apr]="card.apr"
+      [exposure]="card.exposure"
+      [amount]="card.amount"
+      (cardBurned)="handleCardBurn($event)"
+    ></app-card>
+</div>
+</div>
