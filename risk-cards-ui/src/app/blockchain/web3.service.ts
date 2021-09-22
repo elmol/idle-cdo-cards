@@ -14,7 +14,7 @@ export class Web3Service {
   private contract: Contract;
 
   // localhost
-  private contractAddress = '0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5';
+  private contractAddress = '0x09635F643e140090A9A8Dcd712eD6285858ceBef';
 
 
   constructor(private zone: NgZone) {

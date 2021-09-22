@@ -21,7 +21,7 @@ export class CardService {
     const cards: Card[] = [];
     for (let index = 0; index < balance; index++) {
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
-      const pos: CardForm = await this.web3.call('position', tokenId);
+      const pos: CardForm = await this.web3.call('card', tokenId);
       const apr: number =
         toBN(await this.web3.call('getApr', pos.exposure))
           .div(toBN(10).pow(toBN(16)))
