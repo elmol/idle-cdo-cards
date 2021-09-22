@@ -37,10 +37,28 @@ When you mint a card, you can choose the exposure balancing between the expected
 
 ### Idle CDO Cards UI
 
+You can find technical information for the UI client in [README Idle Cards UI](https://github.com/elmol/idle-cdo-cards/tree/main/risk-cards-ui#readme)
+
+The code is located in https://github.com/elmol/idle-cdo-cards/tree/main/risk-cards-ui
 
 ### Idle CDO Cards Contract
 
+You can find the Idle CDO Card contract in the idle-tranches fork https://github.com/elmol/idle-tranches
+
+**Contract File**: https://github.com/elmol/idle-tranches/blob/master/contracts/IdleCDOCards.sol
+
+#### Test Coverage
+
 ## Next steps and open discussion
 
-1. Reinvestment / harvest / mint period ? 
-2. Idle protocol rewards ?   
+As we mentions in the scope this is a POC in order to start building on  Idle Tranches protocol that server to open discussions and have an early feedback. So, this not should be put into production **for now**.   
+
+### Investment and reinvestment period. 
+**Currently** the investment period is not considered for Cards Protocol. Therefore, the profit produced by a card during a period is shared between all. In other words, the time from a card was minted (mint period) is not taken into account. And this is wrong.  
+
+There were/are analyzing different strategies like delegate calls to Idle Tranches, external periodical harvest per card, analytic period profit using oracles, and contract pool creation per card like Uniswap v3.
+
+
+### Idle protocol rewards.
+Currently idle rewards are not returned to the investor in any way. There is not an strategy defined for stack or reinvest this rewards.
+
