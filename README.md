@@ -20,6 +20,10 @@ It should be seen it as an initial seed and **proof of concept** to start buildi
 
 ### Demo
 
+
+https://user-images.githubusercontent.com/5402004/134591446-2d956161-0f52-4b09-a11a-858b48b18965.mp4
+
+
 ## What is Idle CDO Cards?
 
 Totally based on **Idle Perpetual Yield Tranches** https://github.com/Idle-Labs/idle-tranches#readme, Idle CDO Cards allows to create different types of investing strategies balancing risk and gain.
