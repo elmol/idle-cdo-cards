@@ -47,7 +47,23 @@ You can find the Idle CDO Card contract in the idle-tranches fork https://github
 
 **Contract File**: https://github.com/elmol/idle-tranches/blob/master/contracts/IdleCDOCards.sol
 
+#### Deploy for manual testing
+```
+# npx hardhat deploy-cards-test --network localhost
+
+==========================================================================
+📤 Idle CDO deployed at 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+📤 Idle CDO Cards deployed at 0x09635F643e140090A9A8Dcd712eD6285858ceBef
+🔎 Buyer address: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+💵 Token address: 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+==========================================================================
+```
+
 #### Test Coverage
+
+File                               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-----------------------------------|----------|----------|----------|----------|----------------|
+contracts/IdleCDOCards.sol         |      100 |      100 |      100 |      100 |                |
 
 ## Next steps and open discussion
 
