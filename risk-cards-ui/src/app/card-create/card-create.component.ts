@@ -8,26 +8,34 @@ import { CardForm } from '../types';
 @Component({
   selector: 'app-card-create',
   templateUrl: './card-create.component.html',
-  styleUrls: ['./card-create.component.scss']
+  styleUrls: ['./card-create.component.scss'],
 })
 export class CardCreateComponent {
   cardForm: FormGroup;
   exposure = 50;
-  apr = 0.00;
+  apr = 0.0;
   options: Options = {
     floor: 0,
     ceil: 100,
     hideLimitLabels: true,
     hidePointerLabels: true,
   };
-
+  idleCDOs;
+  selectDisabled = 'disabled';
   @Output() cardCreated: EventEmitter<CardForm> = new EventEmitter();
-
 
   constructor(private fb: FormBuilder, private ps: CardService) {
     this.cardForm = this.fb.group({
       exposure: this.fb.control('', [Validators.required]),
       amount: this.fb.control(''),
+      idleCDO: this.fb.control(''),
+    });
+  }
+
+  ngOnInit() {
+    this.ps.getIdleCDOs().then((cdos) => {
+      this.idleCDOs = cdos;
+      this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
     });
   }
 
@@ -41,7 +49,6 @@ export class CardCreateComponent {
   }
 
   onUserChange(changeContext: ChangeContext): void {
-    this.ps.getApr(changeContext.value).then(v => this.apr = v);
+    this.ps.getApr(changeContext.value).then((v) => (this.apr = v));
   }
-
 }

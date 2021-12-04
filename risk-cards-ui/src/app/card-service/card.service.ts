@@ -58,6 +58,10 @@ export class CardService {
     this.web3.executeTransaction('burn', tokenId);
   }
 
+  async getIdleCDOs() {
+    return ["DAI","FEI"];
+  }
+
   private normalize(card: Card): Card {
     return {
       tokenId: card.tokenId,
