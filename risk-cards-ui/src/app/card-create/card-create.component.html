@@ -22,7 +22,7 @@
     >
 
       <select formControlName="idleCDO" class="form-control custom-select" [attr.disabled]="!idleCDOs? 'disabled' : null" >
-        <option [value]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO}}</option>
+        <option [value]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO.name}}</option>
       </select>
 
       <div class="form-group custom-ngx-slider">

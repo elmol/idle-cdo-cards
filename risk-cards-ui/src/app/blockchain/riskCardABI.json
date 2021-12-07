@@ -2,9 +2,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "address[]",
         "name": "_idleCDOAddress",
-        "type": "address"
+        "type": "address[]"
       }
     ],
     "stateMutability": "nonpayable",
@@ -119,6 +119,30 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "balance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "balanceAA",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "balanceBB",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "owner",
         "type": "address"
@@ -175,9 +199,14 @@
             "internalType": "uint256",
             "name": "amount",
             "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "cardAddress",
+            "type": "address"
           }
         ],
-        "internalType": "struct IdleCDOCards.Card",
+        "internalType": "struct IdleCDOCardManager.Card",
         "name": "",
         "type": "tuple"
       }
@@ -225,10 +254,55 @@
   },
   {
     "inputs": [],
-    "name": "idleCDOAddress",
+    "name": "getIdleCDOs",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "contract IdleCDO[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "idleCDO",
+    "outputs": [
+      {
+        "internalType": "contract IdleCDO",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "idleCDOToken",
+    "outputs": [
+      {
+        "internalType": "contract IERC20Detailed",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "idleCDOs",
+    "outputs": [
+      {
+        "internalType": "contract IdleCDO",
         "name": "",
         "type": "address"
       }

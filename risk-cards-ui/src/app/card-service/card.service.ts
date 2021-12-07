@@ -11,6 +11,8 @@ export class CardService {
 
   static PRECISION: any = toBN(10).pow(toBN(18));
 
+  idleCDOs = [{ name: "DAI", symbol: "DAI", decimals: 18, address: "0x870526b7973b56163a6997bB7C886F5E4EA53638" },{ name: "FEI", symbol: "FEI", decimals: 18, address: "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36" }];
+
   async getCards(): Promise<Card[]> {
     const acc = await this.web3.getAccount();
     const name = await this.web3.call('name');
@@ -59,7 +61,11 @@ export class CardService {
   }
 
   async getIdleCDOs() {
-    return ["DAI","FEI"];
+   const addresses =await this.web3.call('getIdleCDOs')
+   console.log(addresses);
+   // const addresses = ["0x6B175474E89094C44Da98b954EedeAC495271d0F" , "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36"];
+    // filter idleCDOs by addresses
+    return this.idleCDOs.filter(idleCDO => addresses.includes(idleCDO.address));
   }
 
   private normalize(card: Card): Card {
