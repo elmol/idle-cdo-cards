@@ -11,7 +11,7 @@ export class CardService {
 
   static PRECISION: any = toBN(10).pow(toBN(18));
 
-  idleCDOs = [{ name: "DAI", symbol: "DAI", decimals: 18, address: "0x870526b7973b56163a6997bB7C886F5E4EA53638" },{ name: "FEI", symbol: "FEI", decimals: 18, address: "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36" }];
+  idleCDOs = [{ name: "DAI", symbol: "DAI", decimals: 18, address: "0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD" },{ name: "FEI", symbol: "FEI", decimals: 18, address: "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36" }];
 
   async getCards(): Promise<Card[]> {
     const acc = await this.web3.getAccount();
@@ -42,7 +42,7 @@ export class CardService {
 
   async getApr(exposure: number) {
     const exp = toBN(exposure).mul(toBN(10).pow(toBN(16)));
-    const apr = toBN(await this.web3.call('getApr', exp))
+    const apr = toBN(await this.web3.call('getApr', this.idleCDOs[0].address, exp))
       .div(toBN(10).pow(toBN(16)))
       .toNumber();
     return apr ? apr / 100 : 0;
@@ -51,6 +51,7 @@ export class CardService {
   createCard(card: CardForm) {
     this.web3.executeTransaction(
       'mint',
+      this.idleCDOs[0].address,
       toBN(card.exposure).mul(toBN(10).pow(toBN(16))),
       toBN(card.amount).mul(toBN(10).pow(toBN(18)))
     );
@@ -62,7 +63,7 @@ export class CardService {
 
   async getIdleCDOs() {
    const addresses =await this.web3.call('getIdleCDOs')
-   console.log(addresses);
+   console.log("Idle CDOs: ", addresses);
    // const addresses = ["0x6B175474E89094C44Da98b954EedeAC495271d0F" , "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36"];
     // filter idleCDOs by addresses
     return this.idleCDOs.filter(idleCDO => addresses.includes(idleCDO.address));
