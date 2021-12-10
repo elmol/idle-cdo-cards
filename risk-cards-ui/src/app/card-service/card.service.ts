@@ -25,7 +25,7 @@ export class CardService {
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
       const pos: CardForm = await this.web3.call('card', tokenId);
       const apr: number =
-        toBN(await this.web3.call('getApr',this.idleCDOs[0].address, pos.exposure))  //TODO: FIX THIS
+        toBN(await this.web3.call('getApr',pos.idleCDOAddress, pos.exposure))
           .div(toBN(10).pow(toBN(16)))
           .toNumber() / 100;
       cards.push(
@@ -34,7 +34,8 @@ export class CardService {
           apr,
           amount: pos.amount,
           exposure: pos.exposure,
-          idleCDO: this.idleCDOs[0] //TODO: FIX THIS
+          idleCDOAddress: pos.idleCDOAddress,
+          idleCDO: this.idleCDOs.find(idleCDO => idleCDO.address === pos.idleCDOAddress)
         })
       );
     }
@@ -52,7 +53,7 @@ export class CardService {
   createCard(card: CardForm) {
     this.web3.executeTransaction(
       'mint',
-      card.idleCDO.address,
+      card.idleCDOAddress,
       toBN(card.exposure).mul(toBN(10).pow(toBN(16))),
       toBN(card.amount).mul(toBN(10).pow(toBN(18)))
     );
@@ -78,7 +79,8 @@ export class CardService {
         .div(CardService.PRECISION.div(toBN(100)))
         .toNumber(),
       amount: toBN(card.amount).div(CardService.PRECISION).toNumber(),
-      idleCDO: card.idleCDO
+      idleCDO: card.idleCDO,
+      idleCDOAddress: card.idleCDOAddress
     };
   }
 

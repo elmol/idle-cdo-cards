@@ -20,11 +20,15 @@
       </div>
 
       <div class="row align-items-center mb-1 d-flex">
-          <div class="col-6 text-left">
+          <div class="col-4 text-left">
               <h3>{{ exposure | number:'1.0-0' }}% </h3>
               <div class="text-uppercase text-muted small">RISK</div>
           </div>
-          <div class="col-6 text-right">
+          <div class="col-4 text-center">
+            <h3>{{ idleCDOName }}</h3>
+            <div class="text-uppercase text-muted small">NAME</div>
+        </div>
+          <div class="col-4 text-right">
               <h3>{{ amount }}</h3>
               <div class="text-uppercase text-muted small">AMOUNT</div>
           </div>

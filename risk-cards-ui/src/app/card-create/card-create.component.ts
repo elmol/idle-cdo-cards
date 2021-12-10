@@ -44,7 +44,7 @@ export class CardCreateComponent {
     const formData: CardForm = {
       exposure: this.cardForm.get('exposure').value,
       amount: this.cardForm.get('amount').value,
-      idleCDO: this.cardForm.get('idleCDO').value,
+      idleCDOAddress: this.cardForm.get('idleCDO').value.address,
     };
 
     this.cardCreated.emit(formData);
