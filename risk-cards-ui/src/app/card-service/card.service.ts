@@ -11,7 +11,7 @@ export class CardService {
 
   static PRECISION: any = toBN(10).pow(toBN(18));
 
-  idleCDOs = [{ name: "DAI", symbol: "DAI", decimals: 18, address: "0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD" },{ name: "FEI", symbol: "FEI", decimals: 18, address: "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36" }];
+  idleCDOs = [{ name: "DAI", symbol: "DAI", decimals: 18, address: "0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD" },{ name: "FEI", symbol: "FEI", decimals: 18, address: "0x51A1ceB83B83F1985a81C295d1fF28Afef186E02" }];
 
   async getCards(): Promise<Card[]> {
     const acc = await this.web3.getAccount();
@@ -25,7 +25,7 @@ export class CardService {
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
       const pos: CardForm = await this.web3.call('card', tokenId);
       const apr: number =
-        toBN(await this.web3.call('getApr', pos.exposure))
+        toBN(await this.web3.call('getApr',this.idleCDOs[0].address, pos.exposure))  //TODO: FIX THIS
           .div(toBN(10).pow(toBN(16)))
           .toNumber() / 100;
       cards.push(
@@ -34,15 +34,16 @@ export class CardService {
           apr,
           amount: pos.amount,
           exposure: pos.exposure,
+          idleCDO: this.idleCDOs[0] //TODO: FIX THIS
         })
       );
     }
     return cards;
   }
 
-  async getApr(exposure: number) {
+  async getApr(idleCDO, exposure: number) {
     const exp = toBN(exposure).mul(toBN(10).pow(toBN(16)));
-    const apr = toBN(await this.web3.call('getApr', this.idleCDOs[0].address, exp))
+    const apr = toBN(await this.web3.call('getApr', idleCDO.address, exp))
       .div(toBN(10).pow(toBN(16)))
       .toNumber();
     return apr ? apr / 100 : 0;
@@ -51,7 +52,7 @@ export class CardService {
   createCard(card: CardForm) {
     this.web3.executeTransaction(
       'mint',
-      this.idleCDOs[0].address,
+      card.idleCDO.address,
       toBN(card.exposure).mul(toBN(10).pow(toBN(16))),
       toBN(card.amount).mul(toBN(10).pow(toBN(18)))
     );
@@ -77,6 +78,7 @@ export class CardService {
         .div(CardService.PRECISION.div(toBN(100)))
         .toNumber(),
       amount: toBN(card.amount).div(CardService.PRECISION).toNumber(),
+      idleCDO: card.idleCDO
     };
   }
 

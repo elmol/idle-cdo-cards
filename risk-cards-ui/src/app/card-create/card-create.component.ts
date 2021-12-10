@@ -1,4 +1,5 @@
 import { ChangeContext, PointerType } from '@angular-slider/ngx-slider';
+import { ConditionalExpr } from '@angular/compiler';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Options } from 'ng5-slider/options';
@@ -43,12 +44,13 @@ export class CardCreateComponent {
     const formData: CardForm = {
       exposure: this.cardForm.get('exposure').value,
       amount: this.cardForm.get('amount').value,
+      idleCDO: this.cardForm.get('idleCDO').value,
     };
 
     this.cardCreated.emit(formData);
   }
 
   onUserChange(changeContext: ChangeContext): void {
-    this.ps.getApr(changeContext.value).then((v) => (this.apr = v));
+    this.ps.getApr(this.cardForm.get('idleCDO').value,changeContext.value).then((v) => (this.apr = v));
   }
 }
