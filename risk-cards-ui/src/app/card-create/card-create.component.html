@@ -21,7 +21,7 @@
       (ngSubmit)="submitForm()"
     >
 
-      <select formControlName="idleCDO" class="form-control custom-select" [attr.disabled]="!idleCDOs? 'disabled' : null" >
+      <select formControlName="idleCDO" class="form-control custom-select" [attr.disabled]="!idleCDOs? 'disabled' : null"  (change)='onUserChange($event)' >
         <option [ngValue]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO.name}}</option>
       </select>
 

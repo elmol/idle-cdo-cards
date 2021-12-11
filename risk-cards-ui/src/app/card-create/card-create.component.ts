@@ -51,6 +51,7 @@ export class CardCreateComponent {
   }
 
   onUserChange(changeContext: ChangeContext): void {
-    this.ps.getApr(this.cardForm.get('idleCDO').value,changeContext.value).then((v) => (this.apr = v));
+    this.ps.getApr(this.cardForm.get('idleCDO').value,this.cardForm.get('exposure').value).then((v) => (this.apr = v));
   }
+
 }
