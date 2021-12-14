@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Card, CardForm } from '../types';
 import { Web3Service } from '../blockchain/web3.service';
 import { toBN } from 'web3-utils';
+import * as idleCDOsData from '../../assets/idle-cdos.json';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class CardService {
 
   static PRECISION: any = toBN(10).pow(toBN(18));
 
-  idleCDOs = [{ name: "DAI", symbol: "DAI", decimals: 18, address: "0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD" },{ name: "FEI", symbol: "FEI", decimals: 18, address: "0x51A1ceB83B83F1985a81C295d1fF28Afef186E02" }];
+  idleCDOs = idleCDOsData.default;
 
   async getCards(): Promise<Card[]> {
     const acc = await this.web3.getAccount();
