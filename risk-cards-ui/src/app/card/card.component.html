@@ -14,24 +14,24 @@
 
       <div class="row align-items-center mb-1 d-flex">
         <div class="col-12 text-center">
-           <h1>{{apr | number:'1.2-2'}}%</h1>
-           <div class="text-uppercase text-muted small">APR</div>
+           <h1 class="mb-0" >{{apr | number:'1.2-2'}}%</h1>
+           <div class="text-uppercase small">APR</div>
         </div>
       </div>
 
-      <div class="row align-items-center mb-1 d-flex">
+      <div class="row align-items-center mb-1 d-flex mt-2">
           <div class="col-4 text-left">
-              <h3>{{ exposure | number:'1.0-0' }}% </h3>
-              <div class="text-uppercase text-muted small">RISK</div>
+              <h3 class="mb-0" >{{ exposure | number:'1.0-0' }}% </h3>
+              <div class="text-uppercase  small">RISK</div>
           </div>
           <div class="col-4 text-center">
            <img class="img-thumbnail rounded-circle" style="width: 40px; height: 40px"
               [src]="idleCDO.icon" />
-            <div class="text-uppercase text-muted small">{{ idleCDO.name }}</div>
+            <div class="text-uppercase small">{{ idleCDO.name }}</div>
         </div>
           <div class="col-4 text-right">
-              <h3>{{ amount }}</h3>
-              <div class="text-uppercase text-muted small">AMOUNT</div>
+              <h3 class="mb-0">{{ amount }}</h3>
+              <div class="text-uppercase small">AMOUNT</div>
           </div>
       </div>
       <div class="progress mt-1 " data-height="25" style="height: 8px;">

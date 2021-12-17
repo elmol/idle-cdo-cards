@@ -1,3 +1,5 @@
+@import '../../styles.scss';
+
 // We need to use ::ng-deep to overcome view encapsulation
 $handleSize: 16px !default;
 $barDimension: 12px !default;
@@ -35,7 +37,7 @@ $barDimension: 12px !default;
 }
 
 .l-bg-blue-dark {
-  background: linear-gradient(to right, #373b44, #4286f4) !important;
+  background: linear-gradient(to right, #0b50b0, #6fa4f2) !important;
   color: #fff;
 }
 
@@ -83,4 +85,3 @@ $barDimension: 12px !default;
   background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
   color: #fff;
 }
-

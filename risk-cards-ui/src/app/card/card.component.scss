@@ -1,3 +1,5 @@
+@import '../../styles.scss';
+
 .card {
   background-color: #fff;
   border-radius: 10px;
@@ -12,7 +14,7 @@
 }
 
 .l-bg-blue-dark {
-  background: linear-gradient(to right, #373b44, #4286f4) !important;
+  background: linear-gradient(to right, #0b50b0, #6fa4f2) !important;
   color: #fff;
 }
 
