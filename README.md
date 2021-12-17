@@ -9,6 +9,8 @@ This product is based on  **Gitcoin Hackathon: Grants Round 11 Hackathon**
 https://gitcoin.co/issue/Idle-Labs/idle-contracts/33/100026511
 
 
+On the other hand, Some improvements were suggested by IdleDAO and the [project](https://github.com/elmol/idle-cdo-cards/projects/1) was created in order to follow up on them.
+
 ### Challenge Description
 Build products or strategies on top of Idle Perpetual Yield Tranches.
 
@@ -17,6 +19,8 @@ Show your creativity: in this challenge, you should create and develop a product
 ### Scope 
 
 It should be seen it as an initial seed and **proof of concept** to start building on Idle Tranches protocol.
+
+[issue-1](https://github.com/elmol/idle-cdo-cards/issues/1) implementation: Allowing an investor to mint cards not only for IdleCDO DAI but also IdleFEI CDO.
 
 ### Demo
 
@@ -49,35 +53,45 @@ The code is located in https://github.com/elmol/idle-cdo-cards/tree/main/risk-ca
 
 You can find the Idle CDO Card contract in the idle-tranches fork https://github.com/elmol/idle-tranches
 
-**Contract File**: https://github.com/elmol/idle-tranches/blob/master/contracts/IdleCDOCards.sol
+**Contract Files**: 
+Card Manager: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contracts/IdleCDOCardManager.sol
+Card: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contracts/IdleCDOCard.sol
 
 #### Deploy for manual testing
 ```
 # npx hardhat deploy-cards-test --network localhost
 
-==========================================================================
-📤 Idle CDO deployed at 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-📤 Idle CDO Cards deployed at 0x09635F643e140090A9A8Dcd712eD6285858ceBef
+================================================================================
+📤 Idle CDO Cards deployed at 0xCace1b78160AE76398F486c8a18044da0d66d86D
+📤 Idle CDO DAI deployed at 0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+💵 DAI Underlying Token address: 0xFD471836031dc5108809D173A067e8486B9047A3
+📤 Idle CDO FEI deployed at 0x51A1ceB83B83F1985a81C295d1fF28Afef186E02 by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+💵 FEI Underlying Token address: 0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc
 🔎 Buyer address: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
-💵 Token address: 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-==========================================================================
+================================================================================
 ```
 
 #### Test Coverage
 
 File                               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -----------------------------------|----------|----------|----------|----------|----------------|
-contracts/IdleCDOCards.sol         |      100 |      100 |      100 |      100 |                |
+contracts/IdleCDOCardManager.sol   |      100 |      100 |      100 |      100 |                |
+contracts/IdleCDOCard.sol          |      100 |      100 |      100 |      100 |                |
 
 ## Next steps and open discussion
 
 As we mentions in the scope this is a POC in order to start building on  Idle Tranches protocol that server to open discussions and have an early feedback. So, this not should be put into production **for now**.   
 
+### Allow the users to choose different tranches of different IdleCDO in a single Idle CDO NFT Card. (UI included)
+
+https://github.com/elmol/idle-cdo-cards/projects/1
+
 ### Investment and reinvestment period. 
-**Currently** the investment period is not considered for Cards Protocol. Therefore, the profit produced by a card during a period is shared between all. In other words, the time from a card was minted (mint period) is not taken into account. And this is wrong.  
+~~**Currently** the investment period is not considered for Cards Protocol. Therefore, the profit produced by a card during a period is shared between all. In other words, the time from a card was minted (mint period)_ _is not taken into account. And this is wrong.~~ 
 
-There were/are analyzing different strategies like delegate calls to Idle Tranches, external periodical harvest per card, analytic period profit using oracles, and contract pool creation per card like Uniswap v3.
+~~There were/are analyzing different strategies like delegate calls to Idle Tranches, external periodical harvest per card, analytic period profit using oracles, and contract pool creation per card like Uniswap v3.~~
 
+It was *FIXED* creating a card contract for each card https://github.com/elmol/idle-tranches/pull/1
 
 ### Idle protocol rewards.
 Currently idle rewards are not returned to the investor in any way. There is not an strategy defined for stack or reinvest this rewards.
