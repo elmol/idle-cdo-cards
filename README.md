@@ -24,8 +24,7 @@ It should be seen it as an initial seed and **proof of concept** to start buildi
 
 ### Demo
 
-
-https://user-images.githubusercontent.com/5402004/134591446-2d956161-0f52-4b09-a11a-858b48b18965.mp4
+https://user-images.githubusercontent.com/5402004/146608238-46ad4716-491d-4b7b-b950-024012df9938.mp4
 
 
 ## What is Idle CDO Cards?
@@ -38,8 +37,8 @@ This strategies are represented by Idle CDO Cards, which are a NFT token. The ca
 
 When you mint a card, you can choose the exposure balancing between the expected profits and risk. The amount is split proportionally based on the exposure and deposited in tranches AA (less risky) or BB (more risky) as appropriate.  
 
+![issue-1](https://user-images.githubusercontent.com/5402004/146608305-a240b7dd-e863-474d-a606-a1524dc5eb80.png)
 
-![Screenshot from 2021-09-21 00-01-09](https://user-images.githubusercontent.com/5402004/134105378-45761ae3-13d2-41a4-86df-20884d6d6f85.png)
 
 ## Technical Details 
 
@@ -75,8 +74,8 @@ Card: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contra
 
 File                               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -----------------------------------|----------|----------|----------|----------|----------------|
-contracts/IdleCDOCardManager.sol   |      100 |      100 |      100 |      100 |                |
-contracts/IdleCDOCard.sol          |      100 |      100 |      100 |      100 |                |
+contracts/IdleCDOCardManager.sol   |       |       |       |       |                |
+contracts/IdleCDOCard.sol          |       |       |       |       |                |
 
 ## Next steps and open discussion
 
