@@ -25,8 +25,9 @@
               <div class="text-uppercase text-muted small">RISK</div>
           </div>
           <div class="col-4 text-center">
-            <h3>{{ idleCDOName }}</h3>
-            <div class="text-uppercase text-muted small">NAME</div>
+           <img class="img-thumbnail rounded-circle" style="width: 40px; height: 40px"
+              [src]="idleCDO.icon" />
+            <div class="text-uppercase text-muted small">{{ idleCDO.name }}</div>
         </div>
           <div class="col-4 text-right">
               <h3>{{ amount }}</h3>

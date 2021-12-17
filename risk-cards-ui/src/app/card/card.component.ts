@@ -12,7 +12,7 @@ export class CardComponent implements OnInit {
   @Input() apr: number;
   @Input() amount: number;
   @Input() exposure: number;
-  @Input() idleCDOName: string;
+  @Input() idleCDO: any;
 
   @Output() cardBurned: EventEmitter<number> = new EventEmitter();
 
