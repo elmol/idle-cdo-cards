@@ -27,9 +27,12 @@ export class CardCreateComponent {
 
   constructor(private fb: FormBuilder, private ps: CardService) {
     this.cardForm = this.fb.group({
-      exposure: this.fb.control('', [Validators.required]),
-      amount: this.fb.control(''),
       idleCDO: this.fb.control(''),
+      cardItem: this.fb.group({
+        idleCDO: this.fb.control(''),
+        exposure: this.fb.control('', [Validators.required]),
+        amount: this.fb.control(''),
+      })
     });
   }
 
@@ -37,21 +40,29 @@ export class CardCreateComponent {
     this.ps.getIdleCDOs().then((cdos) => {
       this.idleCDOs = cdos;
       this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
+      this.updateIdleCDO();
     });
   }
 
   submitForm() {
+    const cardItem = this.cardForm.get('cardItem').value;
     const formData: CardForm = {
-      exposure: this.cardForm.get('exposure').value,
-      amount: this.cardForm.get('amount').value,
-      idleCDOAddress: this.cardForm.get('idleCDO').value.address,
+      exposure: cardItem.exposure,
+      amount: cardItem.amount,
+      idleCDOAddress: cardItem.idleCDO.address,
     };
 
     this.cardCreated.emit(formData);
   }
 
   onUserChange(changeContext: ChangeContext): void {
-    this.ps.getApr(this.cardForm.get('idleCDO').value,this.cardForm.get('exposure').value).then((v) => (this.apr = v));
+    this.updateIdleCDO();
+    const cardItem = this.cardForm.get('cardItem').value;
+    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => (this.apr = v));
+  }
+
+  updateIdleCDO () {
+    this.cardForm.get('cardItem').get('idleCDO').setValue(this.cardForm.get('idleCDO').value);
   }
 
 }

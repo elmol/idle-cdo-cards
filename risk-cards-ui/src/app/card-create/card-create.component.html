@@ -25,7 +25,7 @@
         <option [ngValue]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO.name}}</option>
       </select>
 
-      <div class="container">
+      <div formGroupName="cardItem" class="container">
 
         <div class="row custom-ngx-slider">
           <ngx-slider formControlName="exposure" [(value)]="exposure" [options]="options" (userChange)="onUserChange($event)"
