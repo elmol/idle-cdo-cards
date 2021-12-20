@@ -74,8 +74,8 @@ Card: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contra
 
 File                               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -----------------------------------|----------|----------|----------|----------|----------------|
-contracts/IdleCDOCardManager.sol   |       |       |       |       |                |
-contracts/IdleCDOCard.sol          |       |       |       |       |                |
+  IdleCDOCard.sol                  |      100 |      100 |      100 |      100 |                |
+  IdleCDOCardManager.sol           |      100 |      100 |      100 |      100 |                |
 
 ## Next steps and open discussion
 
