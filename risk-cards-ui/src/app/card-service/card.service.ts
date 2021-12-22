@@ -56,7 +56,7 @@ export class CardService {
       'mint',
       card.idleCDOAddress,
       toBN(card.exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(card.amount).mul(toBN(10).pow(toBN(18)))
+      toBN(Math.trunc(card.amount * (10 ** 2))).mul(toBN(10).pow(toBN(16)))
     );
   }
 
@@ -79,7 +79,7 @@ export class CardService {
       exposure: toBN(card.exposure)
         .div(CardService.PRECISION.div(toBN(100)))
         .toNumber(),
-      amount: toBN(card.amount).div(CardService.PRECISION).toNumber(),
+      amount: toBN(card.amount).div(toBN(10).pow(toBN(16))).toNumber() / 100,
       idleCDO: card.idleCDO,
       idleCDOAddress: card.idleCDOAddress
     };
