@@ -1,5 +1,6 @@
 import { ChangeContext, PointerType } from '@angular-slider/ngx-slider';
 import { ConditionalExpr } from '@angular/compiler';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Options } from 'ng5-slider/options';
@@ -23,6 +24,8 @@ export class CardCreateComponent {
   };
   idleCDOs;
   selectDisabled = 'disabled';
+  disableMint = false;
+
   @Output() cardCreated: EventEmitter<CardForm> = new EventEmitter();
 
   constructor(private fb: FormBuilder, private ps: CardService) {
@@ -41,6 +44,7 @@ export class CardCreateComponent {
       this.idleCDOs = cdos;
       this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
       this.updateIdleCDO();
+      this.updateAPR();
     });
   }
 
@@ -57,12 +61,16 @@ export class CardCreateComponent {
 
   onUserChange(changeContext: ChangeContext): void {
     this.updateIdleCDO();
-    const cardItem = this.cardForm.get('cardItem').value;
-    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => (this.apr = v));
+    this.updateAPR();
   }
 
   updateIdleCDO () {
     this.cardForm.get('cardItem').get('idleCDO').setValue(this.cardForm.get('idleCDO').value);
+  }
+
+  updateAPR() {
+    const cardItem = this.cardForm.get('cardItem').value;
+    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => {this.apr = v; this.disableMint = this.apr === 0;});
   }
 
 }
