@@ -41,6 +41,13 @@ export class CardService {
     return apr ? apr / 100 : 0;
   }
 
+  async getUnderlyingBalance(idleCDO: any) {
+   const balance = await this.web3.getERC20Balance(idleCDO.underlying);
+   return toBN(balance)
+          .div(toBN(10).pow(toBN(16)))
+          .toNumber() / 100;
+  }
+
   createCard(card: CardForm[]) {
     this.web3.executeTransaction(
       'combine',

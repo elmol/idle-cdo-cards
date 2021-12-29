@@ -14,6 +14,10 @@ import { CardForm } from '../types';
 })
 export class CardCreateComponent {
   cardForm: FormGroup;
+  underlyingBalance = 0;
+  underlyingBalanceFEI=0;
+
+
   exposure = 50;
   exposureFEI= 50;
   apr = 0.0;
@@ -54,7 +58,12 @@ export class CardCreateComponent {
       this.cardForm.get('idleCDOFEI').setValue(this.idleCDOs[1]);
       this.updateIdleCDO();
       this.updateAPR();
+      this.updateUnderlyingBalance();
     });
+        // TODO: emit other event type
+        this.ps.onEvent('Transfer').subscribe(() => {
+          this.updateUnderlyingBalance();
+        });
   }
 
   submitForm() {
@@ -90,6 +99,11 @@ export class CardCreateComponent {
 
     const cardItemFEI = this.cardForm.get('cardItemFEI').value;
     this.ps.getApr(cardItemFEI.idleCDO, cardItemFEI.exposure).then((v) => {this.aprFEI = v; this.disableMint = this.aprFEI === 0;});
+  }
+
+  updateUnderlyingBalance() {
+    this.ps.getUnderlyingBalance(this.idleCDOs[0]).then((balance) => {this.underlyingBalance = balance;});
+    this.ps.getUnderlyingBalance(this.idleCDOs[1]).then((balance) => {this.underlyingBalanceFEI = balance;});
   }
 
 }

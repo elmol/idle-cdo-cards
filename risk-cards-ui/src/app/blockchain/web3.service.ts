@@ -4,6 +4,8 @@ import { Contract } from 'web3-eth-contract';
 import { Observable } from 'rxjs';
 
 const contractAbi = require('./riskCardABI.json');
+const erc20Abi = require('./erc20ABI.json');
+
 const contract = require('../../assets/contract.json')[31337]; //localhost
 declare var window: any;
 
@@ -37,6 +39,11 @@ export class Web3Service {
     return this.web3.eth.getAccounts().then((accounts) => accounts[0] || '');
   }
 
+  async getERC20Balance(erc20Address: string): Promise<string> {
+    const erc20contract = new this.web3.eth.Contract(erc20Abi, erc20Address);
+    const acc = await this.getAccount();
+    return await erc20contract.methods.balanceOf(acc).call({ from: acc });
+  }
   async executeTransaction(fnName: string, ...args: any[]): Promise<void> {
     const acc = await this.getAccount();
     this.contract.methods[fnName](...args).send({ from: acc });

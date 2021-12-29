@@ -16,7 +16,7 @@
                     cardForm.get('idleCDO').value.name }}</label>
                 </div>
                 <div class="col-md-8">
-                  <span>{{ apr | number: "1.2-2" }}</span>
+                  <span>{{ underlyingBalance | number: "1.2-2" }}</span>
                   <small class="form-text text-muted text-center">Current Balance ({{
                     cardForm.get('idleCDO').value.name }})</small>
                 </div>
@@ -68,7 +68,7 @@
                     cardForm.get('idleCDOFEI').value.name }}</label>
                 </div>
                 <div class="col-md-8">
-                  <span>{{ apr | number: "1.2-2" }}</span>
+                  <span>{{ underlyingBalanceFEI | number: "1.2-2" }}</span>
                   <small class="form-text text-muted text-center">Current Balance ({{
                     cardForm.get('idleCDOFEI').value.name }})</small>
                 </div>
