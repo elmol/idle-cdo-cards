@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "prod": "ng build --prod",
+    "ghpage": "ng build --prod --base-href 'https://elmol.github.io/idle-cdo-cards/'"
   },
   "private": true,
   "dependencies": {
