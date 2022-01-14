@@ -4,6 +4,7 @@ import { Contract } from 'web3-eth-contract';
 import { Observable } from 'rxjs';
 
 const contractAbi = require('./riskCardABI.json');
+const contract = require('../../assets/contract.json')[31337]; //localhost
 declare var window: any;
 
 @Injectable({
@@ -13,8 +14,7 @@ export class Web3Service {
   private web3: Web3;
   private contract: Contract;
 
-  // localhost
-  private contractAddress = '0x09635F643e140090A9A8Dcd712eD6285858ceBef';
+  private contractAddress = contract.address;
 
 
   constructor(private zone: NgZone) {

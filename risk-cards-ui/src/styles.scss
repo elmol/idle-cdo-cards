@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+$theme-colors: (
+  primary: #0036ff
+);
+
+// import in the bootstrap SASS file
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.btn-primary {
+  border-radius: 40px;
+  font-family: sans-serif;
+  font-weight: 600;
+}
