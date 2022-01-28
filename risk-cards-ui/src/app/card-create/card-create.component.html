@@ -1,4 +1,4 @@
-<div class="card" style="width: 28rem;">
+<div class="card" style="width: 30rem;">
   <div class="card-header l-bg-blue-dark text-center"> Idle CDO Risk Cards </div>
   <div class="card-body">
 
@@ -47,6 +47,58 @@
 
               <div class="custom-ngx-slider">
                 <ngx-slider formControlName="exposure" [(value)]="exposure" [options]="options"
+                  (userChange)="onUserChange($event)" class="form-control-sm">
+                </ngx-slider>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div formGroupName="cardItemFEI">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="container">
+
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label class="text-muted small"> <img class="img-thumbnail rounded-circle"
+                      style="width: 40px; height: 40px" [src]="cardForm.get('idleCDOFEI').value.icon" alt="" /> {{
+                    cardForm.get('idleCDOFEI').value.name }}</label>
+                </div>
+                <div class="col-md-8">
+                  <span>{{ apr | number: "1.2-2" }}</span>
+                  <small class="form-text text-muted text-center">Current Balance ({{
+                    cardForm.get('idleCDOFEI').value.name }})</small>
+                </div>
+              </div>
+
+              <div class="row mb-0">
+                <div class="col-md-3">
+                  <span>{{ exposureFEI | number: "1.0-0" }}%</span>
+                  <div class="text-uppercase text-muted small">risk</div>
+                </div>
+
+                <div class="col-md-3">
+                  <span>{{ aprFEI | number: "1.2-2" }}%</span>
+                  <div class="text-uppercase text-muted small">APR</div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input formControlName="amount" type="text" class="form-control form-control-sm text-right"
+                        placeholder="0.00" />
+                    </div>
+                    <small class="form-text text-muted text-center">Deposit amount ({{
+                      cardForm.get('idleCDOFEI').value.name }})</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="custom-ngx-slider">
+                <ngx-slider formControlName="exposure" [(value)]="exposureFEI" [options]="options"
                   (userChange)="onUserChange($event)" class="form-control-sm">
                 </ngx-slider>
               </div>

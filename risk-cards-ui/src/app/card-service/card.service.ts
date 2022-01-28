@@ -3,6 +3,7 @@ import { Card, CardForm } from '../types';
 import { Web3Service } from '../blockchain/web3.service';
 import { toBN } from 'web3-utils';
 import * as idleCDOsData from '../../assets/idle-cdos.json';
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root',
@@ -23,22 +24,28 @@ export class CardService {
 
     const cards: Card[] = [];
     for (let index = 0; index < balance; index++) {
+      console.log("index: ", index);
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
-      const pos: CardForm = await this.web3.call('card', tokenId);
-      const apr: number =
-        toBN(await this.web3.call('getApr',pos.idleCDOAddress, pos.exposure))
-          .div(toBN(10).pow(toBN(16)))
-          .toNumber() / 100;
-      cards.push(
-        this.normalize({
+      console.log("tokenId: ", tokenId);
+      const tokenIds = await this.web3.call('cardGroup', tokenId);
+      const pos: CardForm = await this.web3.call('card', tokenIds[0]);
+        const apr: number =
+          toBN(await this.web3.call('getApr', pos.idleCDOAddress, pos.exposure))
+            .div(toBN(10).pow(toBN(16)))
+            .toNumber() / 100;
+        const card = {
           tokenId,
           apr,
           amount: pos.amount,
           exposure: pos.exposure,
           idleCDOAddress: pos.idleCDOAddress,
-          idleCDO: this.idleCDOs.find(idleCDO => idleCDO.address === pos.idleCDOAddress)
-        })
-      );
+          idleCDO: this.idleCDOs.find(
+            (idleCDO) => idleCDO.address === pos.idleCDOAddress
+          ),
+        }
+        cards.push(
+          this.normalize(card)
+        );
     }
     return cards;
   }
@@ -51,12 +58,15 @@ export class CardService {
     return apr ? apr / 100 : 0;
   }
 
-  createCard(card: CardForm) {
+  createCard(card: CardForm[]) {
     this.web3.executeTransaction(
-      'mint',
-      card.idleCDOAddress,
-      toBN(card.exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card.amount * (10 ** 2))).mul(toBN(10).pow(toBN(16)))
+      'combine',
+      card[0].idleCDOAddress,
+      toBN(card[0].exposure).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(card[0].amount * (10 ** 2))).mul(toBN(10).pow(toBN(16))),
+      card[1].idleCDOAddress,
+      toBN(card[1].exposure).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(card[1].amount * (10 ** 2))).mul(toBN(10).pow(toBN(16)))
     );
   }
 

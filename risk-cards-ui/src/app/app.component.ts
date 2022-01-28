@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
     });
   }
 
-  handleCardCreate(card: CardForm) {
+  handleCardCreate(card: CardForm[]) {
     this.ps.createCard(card);
   }
 
