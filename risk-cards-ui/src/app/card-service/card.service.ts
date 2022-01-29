@@ -24,28 +24,11 @@ export class CardService {
 
     const cards: Card[] = [];
     for (let index = 0; index < balance; index++) {
-      console.log("index: ", index);
+      console.log('index: ', index);
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
-      console.log("tokenId: ", tokenId);
+      console.log('tokenId: ', tokenId);
       const tokenIds = await this.web3.call('cardGroup', tokenId);
-      const pos: CardForm = await this.web3.call('card', tokenIds[0]);
-        const apr: number =
-          toBN(await this.web3.call('getApr', pos.idleCDOAddress, pos.exposure))
-            .div(toBN(10).pow(toBN(16)))
-            .toNumber() / 100;
-        const card = {
-          tokenId,
-          apr,
-          amount: pos.amount,
-          exposure: pos.exposure,
-          idleCDOAddress: pos.idleCDOAddress,
-          idleCDO: this.idleCDOs.find(
-            (idleCDO) => idleCDO.address === pos.idleCDOAddress
-          ),
-        }
-        cards.push(
-          this.normalize(card)
-        );
+      cards.push(...await this.buildCards(tokenIds));
     }
     return cards;
   }
@@ -63,10 +46,10 @@ export class CardService {
       'combine',
       card[0].idleCDOAddress,
       toBN(card[0].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card[0].amount * (10 ** 2))).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(card[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
       card[1].idleCDOAddress,
       toBN(card[1].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card[1].amount * (10 ** 2))).mul(toBN(10).pow(toBN(16)))
+      toBN(Math.trunc(card[1].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16)))
     );
   }
 
@@ -75,11 +58,43 @@ export class CardService {
   }
 
   async getIdleCDOs() {
-   const addresses =await this.web3.call('getIdleCDOs')
-   console.log("Idle CDOs: ", addresses);
-   // const addresses = ["0x6B175474E89094C44Da98b954EedeAC495271d0F" , "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36"];
+    const addresses = await this.web3.call('getIdleCDOs');
+    console.log('Idle CDOs: ', addresses);
+    // const addresses = ["0x6B175474E89094C44Da98b954EedeAC495271d0F" , "0xF5D915570BC477f9B8D6C0E980aA81757A3AaC36"];
     // filter idleCDOs by addresses
-    return this.idleCDOs.filter(idleCDO => addresses.includes(idleCDO.address));
+    return this.idleCDOs.filter((idleCDO) =>
+      addresses.includes(idleCDO.address)
+    );
+  }
+
+  private async buildCards(tokenIds: any){
+    const cards: Card[] = [await this.buildCard(tokenIds[0])];
+    console.log("tokens ids: " + tokenIds);
+    if(tokenIds[1] != 0){
+      console.log("pushing second card");
+      cards.push(await this.buildCard(tokenIds[1]));
+    }
+    return cards;
+  }
+
+  private async buildCard(cardTokenId: any) {
+    const pos: CardForm = await this.web3.call('card', cardTokenId);
+    const apr: number = toBN(await this.web3.call('getApr', pos.idleCDOAddress, pos.exposure))
+      .div(toBN(10).pow(toBN(16)))
+      .toNumber() / 100;
+    const card = {
+      tokenId: cardTokenId,
+      apr,
+      amount: pos.amount,
+      exposure: pos.exposure,
+      idleCDOAddress: pos.idleCDOAddress,
+      idleCDO: this.idleCDOs.find(
+        (idleCDO) => idleCDO.address === pos.idleCDOAddress
+      ),
+    };
+
+    const normalizedCard = this.normalize(card);
+    return normalizedCard;
   }
 
   private normalize(card: Card): Card {
@@ -89,9 +104,12 @@ export class CardService {
       exposure: toBN(card.exposure)
         .div(CardService.PRECISION.div(toBN(100)))
         .toNumber(),
-      amount: toBN(card.amount).div(toBN(10).pow(toBN(16))).toNumber() / 100,
+      amount:
+        toBN(card.amount)
+          .div(toBN(10).pow(toBN(16)))
+          .toNumber() / 100,
       idleCDO: card.idleCDO,
-      idleCDOAddress: card.idleCDOAddress
+      idleCDOAddress: card.idleCDOAddress,
     };
   }
 
