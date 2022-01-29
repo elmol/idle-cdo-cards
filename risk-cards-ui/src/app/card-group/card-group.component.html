@@ -1,0 +1,11 @@
+<div class="card">
+  <app-card
+  *ngFor="let card of cards | async"
+  [tokenId]="card.tokenId"
+  [apr]="card.apr"
+  [exposure]="card.exposure"
+  [amount]="card.amount"
+  [idleCDO]="card.idleCDO"
+  (cardBurned)="handleCardBurn($event)"
+></app-card>
+</div>
