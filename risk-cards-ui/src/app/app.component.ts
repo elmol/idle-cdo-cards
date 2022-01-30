@@ -8,14 +8,14 @@ import { CardService } from './card-service/card.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  cards = this.ps.getCards();
+  cardGroups = this.ps.getCardGroups();
 
   constructor(private ps: CardService) {}
 
   ngOnInit() {
     // TODO: emit other event type
     this.ps.onEvent('Transfer').subscribe(() => {
-      this.cards = this.ps.getCards();
+      this.cardGroups = this.ps.getCardGroups();
     });
   }
 

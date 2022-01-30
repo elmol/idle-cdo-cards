@@ -9,22 +9,12 @@
     <app-card-create (cardCreated)="handleCardCreate($event)" > </app-card-create>
 </div>
 
-<div class="container">
-  <app-card-group [cards]="cards" (cardBurned)="handleCardBurn($event)"></app-card-group>
+<div class="d-flex container-fluid">
+  <div class="row">
+    <app-card-group *ngFor="let cardGroup of cardGroups | async" [cards]="cardGroup.cards" [tokenId]="cardGroup.tokenId" (cardBurned)="handleCardBurn($event)">
+    </app-card-group>
+  </div>
 </div>
 
-<div class="d-flex container-fluid">
-    <div class="row">
-    <app-card
-      *ngFor="let card of cards | async"
-      [tokenId]="card.tokenId"
-      [apr]="card.apr"
-      [exposure]="card.exposure"
-      [amount]="card.amount"
-      [idleCDO]="card.idleCDO"
-      (cardBurned)="handleCardBurn($event)"
-    ></app-card>
-</div>
-</div>
 
 

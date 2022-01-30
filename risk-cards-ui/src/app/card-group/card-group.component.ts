@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Card } from '../types';
+import { Card, CardGroup } from '../types';
 
 @Component({
   selector: 'app-card-group',
@@ -9,7 +9,7 @@ import { Card } from '../types';
 export class CardGroupComponent implements OnInit {
 
   @Input() tokenId: number;
-  @Input() cards: Promise<Card[]>;
+  @Input() cards: Card[];
 
   @Output() cardBurned: EventEmitter<number> = new EventEmitter();
 

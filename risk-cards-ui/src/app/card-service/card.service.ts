@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Card, CardForm } from '../types';
+import { Card, CardForm, CardGroup } from '../types';
 import { Web3Service } from '../blockchain/web3.service';
 import { toBN } from 'web3-utils';
 import * as idleCDOsData from '../../assets/idle-cdos.json';
@@ -15,20 +15,20 @@ export class CardService {
 
   idleCDOs = idleCDOsData.default;
 
-  async getCards(): Promise<Card[]> {
+  async getCardGroups(): Promise<CardGroup[]> {
     const acc = await this.web3.getAccount();
     const name = await this.web3.call('name');
     console.log('contract name: ', name, ' account: ', acc);
     const balance = await this.web3.call('balanceOf', acc);
     console.log('Idle Risk Cards for balance of Cards: ', balance);
 
-    const cards: Card[] = [];
+    const cards: CardGroup[] = [];
     for (let index = 0; index < balance; index++) {
       console.log('index: ', index);
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
       console.log('tokenId: ', tokenId);
       const tokenIds = await this.web3.call('cardGroup', tokenId);
-      cards.push(...await this.buildCards(tokenIds));
+      cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenIds) });
     }
     return cards;
   }
