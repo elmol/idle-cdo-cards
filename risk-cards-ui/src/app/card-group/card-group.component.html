@@ -1,37 +1,38 @@
 <div class=col>
   <div class="card l-bg-blue-dark" style="width: 30rem;">
-
     <div class="card-statistic-3 p-4">
-    <div class="row align-items-center mb-1 d-flex">
-      <div class="col-9 text-truncate">
-          <span class="card-title small mb-0">#{{tokenId}}</span>
-      </div>
-      <div class="col-3 text-right">
-        <button type="button" class="btn btn-primary btn-sm" (click)="onBurn()">Burn</button>
-     </div>
+      <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
+        <div class="row align-items-center d-flex">
+          <div class="col-9 text-truncate">
+            <span class="card-title small mb-0">#{{tokenId}}</span>
+          </div>
+          <div class="col-3 text-right">
+            <button type="button" class="btn btn-primary btn-sm" (click)="onBurn()">Burn</button>
+          </div>
+        </div>
+        <div class="row align-items-center mt-3 d-flex">
+          <div class="col align-self-center text-center">
+               <div>
+                 <img class="img-thumbnail rounded-circle overlap-item" style="width: 70px; height: 70px"
+                *ngFor="let card of cards" [src]="card.idleCDO.icon" />
+              </div>
+
+          </div>
+        </div>
     </div>
 
     <div class="card-statistic-3 p-4" *ngFor="let card of cards" >
-        <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
 
-
-        <div class="row align-items-center mb-1 d-flex">
-          <!-- <div class="col-12 text-center">
-             <h1 class="mb-0" >{{card.apr | number:'1.2-2'}}%</h1>
-             <div class="text-uppercase small">APR</div>
-          </div> -->
-          <div class="col-sm-12 text-center">
-            <img class="img-thumbnail rounded-circle" style="width: 40px; height: 40px" [src]="card.idleCDO.icon" />
-            <div class="text-uppercase small">{{ card.idleCDO.name }}</div>
-          </div>
-        </div>
-
-        <div class="row align-items-center mb-1 d-flex mt-2">
+        <div class="row align-items-center d-flex ">
 
           <div class="col-sm-2 text-left">
             <span class="mb-0">#{{card.tokenId}}</span>
           </div>
-          <div class="col-sm-3 text-center">
+          <div class="col-sm-2 text-center">
+            <img class="img-thumbnail rounded-circle" style="width: 40px; height: 40px" [src]="card.idleCDO.icon" />
+            <div class="text-uppercase small">{{ card.idleCDO.name }}</div>
+          </div>
+          <div class="col-sm-2 text-center">
             <span class="mb-0">{{ card.exposure | number:'1.0-0' }}% </span>
             <div class="text-uppercase  small">RISK</div>
           </div>
@@ -39,11 +40,7 @@
             <span class="mb-0">{{card.apr | number:'1.2-2'}}%</span>
             <div class="text-uppercase small">APR</div>
           </div>
-          <!-- <div class="col-sm-3 text-center">
-            <img class="img-thumbnail rounded-circle" style="width: 40px; height: 40px" [src]="card.idleCDO.icon" />
-            <div class="text-uppercase small">{{ card.idleCDO.name }}</div>
-          </div> -->
-          <div class="col-sm-4 text-right">
+          <div class="col-sm-3 text-right">
             <span class="mb-0">{{ card.amount }}</span>
             <div class="text-uppercase small">AMOUNT</div>
           </div>
@@ -55,4 +52,3 @@
       </div>
   </div>
   </div>
-</div>
