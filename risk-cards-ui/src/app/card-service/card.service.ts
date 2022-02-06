@@ -27,7 +27,7 @@ export class CardService {
       console.log('index: ', index);
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
       console.log('tokenId: ', tokenId);
-      const tokenIds = await this.web3.call('cardGroup', tokenId);
+      const tokenIds = await this.web3.call('contentIndexes', tokenId);
       cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenIds) });
     }
     return cards;
@@ -75,11 +75,11 @@ export class CardService {
   }
 
   private async buildCards(tokenIds: any){
-    const cards: Card[] = [await this.buildCard(tokenIds[0])];
-    console.log("tokens ids: " + tokenIds);
-    if(tokenIds[1] != 0){
-      console.log("pushing second card");
-      cards.push(await this.buildCard(tokenIds[1]));
+    const cards: Card[]= [];
+    for (let i = 0; i < tokenIds.length; i++) {
+      const tokenId = tokenIds[i];
+      console.log("tokens id: " + tokenId);
+      cards.push(await this.buildCard(tokenId));
     }
     return cards;
   }

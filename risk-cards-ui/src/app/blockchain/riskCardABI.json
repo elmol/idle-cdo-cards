@@ -163,42 +163,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "id0",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "id1",
-        "type": "uint256"
-      }
-    ],
-    "name": "blendTokenId",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "_tokenId",
         "type": "uint256"
       }
     ],
     "name": "burn",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "toRedeem",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -246,25 +216,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "cardGroup",
-    "outputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "tokenCardIds",
-        "type": "uint256[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "_idleCDODAIAddress",
         "type": "address"
@@ -298,6 +249,25 @@
     "name": "combine",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "contentIndexes",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "indexes",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -370,30 +340,6 @@
         "internalType": "contract IdleCDO",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_blendTokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "idsFromBlend",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "id0",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "id1",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
