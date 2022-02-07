@@ -50,7 +50,7 @@ export class CardService {
 
   createCard(card: CardForm[]) {
     this.web3.executeTransaction(
-      'combine',
+      'mint',
       card[0].idleCDOAddress,
       toBN(card[0].exposure).mul(toBN(10).pow(toBN(16))),
       toBN(Math.trunc(card[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
