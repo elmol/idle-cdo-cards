@@ -3,7 +3,6 @@ import { Card, CardForm, CardGroup } from '../types';
 import { Web3Service } from '../blockchain/web3.service';
 import { toBN } from 'web3-utils';
 import * as idleCDOsData from '../../assets/idle-cdos.json';
-import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +23,7 @@ export class CardService {
 
     const cards: CardGroup[] = [];
     for (let index = 0; index < balance; index++) {
-      console.log('index: ', index);
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
-      console.log('tokenId: ', tokenId);
       const tokenIds = await this.web3.call('contentIndexes', tokenId);
       cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenIds) });
     }
@@ -78,7 +75,6 @@ export class CardService {
     const cards: Card[]= [];
     for (let i = 0; i < tokenIds.length; i++) {
       const tokenId = tokenIds[i];
-      console.log("tokens id: " + tokenId);
       cards.push(await this.buildCard(tokenId));
     }
     return cards;

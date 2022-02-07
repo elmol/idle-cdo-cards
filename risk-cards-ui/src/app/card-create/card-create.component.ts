@@ -104,6 +104,11 @@ export class CardCreateComponent {
   updateUnderlyingBalance() {
     this.ps.getUnderlyingBalance(this.idleCDOs[0]).then((balance) => {this.underlyingBalance = balance;});
     this.ps.getUnderlyingBalance(this.idleCDOs[1]).then((balance) => {this.underlyingBalanceFEI = balance;});
+    this.cardForm.get('cardItem').get('amount').setValue("");
+    this.cardForm.get('cardItemFEI').get('amount').setValue("");
+    this.cardForm.get('cardItem').get('exposure').setValue(50);
+    this.cardForm.get('cardItemFEI').get('exposure').setValue(50);
+    this.updateAPR();
   }
 
 }
