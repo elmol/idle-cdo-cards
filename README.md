@@ -24,8 +24,7 @@ It should be seen it as an initial seed and **proof of concept** to start buildi
 
 ### Demo
 
-https://user-images.githubusercontent.com/5402004/146608238-46ad4716-491d-4b7b-b950-024012df9938.mp4
-
+https://user-images.githubusercontent.com/5402004/153079772-a64d9e90-0643-47a3-8a42-1b5d43a9edcc.mp4
 
 ## What is Idle CDO Cards?
 
@@ -37,7 +36,7 @@ This strategies are represented by Idle CDO Cards, which are a NFT token. The ca
 
 When you mint a card, you can choose the exposure balancing between the expected profits and risk. The amount is split proportionally based on the exposure and deposited in tranches AA (less risky) or BB (more risky) as appropriate.  
 
-![issue-1](https://user-images.githubusercontent.com/5402004/146608305-a240b7dd-e863-474d-a606-a1524dc5eb80.png)
+![delivery-issue-3](https://user-images.githubusercontent.com/5402004/153079888-16cadad7-1726-4739-bc34-1950dce5288c.png)
 
 
 ## Technical Details 
