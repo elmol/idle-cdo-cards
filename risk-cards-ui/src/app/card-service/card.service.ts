@@ -24,8 +24,8 @@ export class CardService {
     const cards: CardGroup[] = [];
     for (let index = 0; index < balance; index++) {
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
-      const tokenIds = await this.web3.call('leafTokenIds', tokenId);
-      cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenIds) });
+      const cardIndexId = await this.web3.call('cardIndexes', tokenId);
+      cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenId,cardIndexId) });
     }
     return cards;
   }
@@ -71,22 +71,22 @@ export class CardService {
     );
   }
 
-  private async buildCards(tokenIds: any){
+  private async buildCards(tokenId:any,cardIndexIds: any){
     const cards: Card[]= [];
-    for (let i = 0; i < tokenIds.length; i++) {
-      const tokenId = tokenIds[i];
-      cards.push(await this.buildCard(tokenId));
+    for (let i = 0; i < cardIndexIds.length; i++) {
+      const tokenId = cardIndexIds[i];
+      cards.push(await this.buildCard(tokenId,cardIndexIds));
     }
     return cards;
   }
 
-  private async buildCard(cardTokenId: any) {
-    const pos: CardForm = await this.web3.call('card', cardTokenId);
+  private async buildCard(tokenId:any,cardIndexId: any) {
+    const pos: CardForm = await this.web3.call('card', tokenId,cardIndexId);
     const apr: number = toBN(await this.web3.call('getApr', pos.idleCDOAddress, pos.exposure))
       .div(toBN(10).pow(toBN(16)))
       .toNumber() / 100;
     const card = {
-      tokenId: cardTokenId,
+      tokenId: tokenId,
       apr,
       amount: pos.amount,
       exposure: pos.exposure,
