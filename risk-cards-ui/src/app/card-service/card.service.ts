@@ -24,7 +24,7 @@ export class CardService {
     const cards: CardGroup[] = [];
     for (let index = 0; index < balance; index++) {
       const tokenId = await this.web3.call('tokenOfOwnerByIndex', acc, index);
-      const tokenIds = await this.web3.call('contentIndexes', tokenId);
+      const tokenIds = await this.web3.call('leafTokenIds', tokenId);
       cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenIds) });
     }
     return cards;
