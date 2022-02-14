@@ -96,7 +96,6 @@ File                               |  % Stmts | % Branch |  % Funcs |  % Lines |
 -----------------------------------|----------|----------|----------|----------|----------------|
   IdleCDOCard.sol                  |      100 |      100 |      100 |      100 |                |
   IdleCDOCardManager.sol           |      100 |      100 |      100 |      100 |                |
-  ERC721SimpleComposite.sol        |      100 |      100 |      100 |      100 |                |
 
 ## Next steps and open discussion
 

@@ -374,32 +374,32 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_idleCDODAIAddress",
+        "name": "_idleCDOPos1Address",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_riskDAI",
+        "name": "_riskPos1",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_amountDAI",
+        "name": "_amountPos1",
         "type": "uint256"
       },
       {
         "internalType": "address",
-        "name": "_idleCDOFEIAddress",
+        "name": "_idleCDOPos2Address",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_riskFEI",
+        "name": "_riskPos2",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_amountFEI",
+        "name": "_amountPos2",
         "type": "uint256"
       }
     ],
