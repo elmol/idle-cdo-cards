@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "prod": "ng build --prod",
+    "timestamp": "date +%s > dist/risk-cards-ui/assets/version.txt",
     "ghpage": "ng build --prod --base-href 'https://elmol.github.io/idle-cdo-cards/'"
   },
   "private": true,
