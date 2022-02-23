@@ -97,6 +97,12 @@ File                               |  % Stmts | % Branch |  % Funcs |  % Lines |
   IdleCDOCard.sol                  |      100 |      100 |      100 |      100 |                |
   IdleCDOCardManager.sol           |      100 |      100 |      100 |      100 |                |
 
+#### Gas Report
+In order to generate the gas report the following env variable should be configured in .env files in https://github.com/elmol/idle-tranches project
+```
+REPORT_GAS=true
+```
+
 ## Next steps and open discussion
 
 As we mentions in the scope this is a POC in order to start building on  Idle Tranches protocol that server to open discussions and have an early feedback. So, this not should be put into production **for now**.   
