@@ -3,16 +3,16 @@
     "name": "DAI",
     "symbol": "DAI",
     "decimals": 18,
-    "address": "0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD",
+    "address": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
     "icon": "assets/images/tokens/DAI.svg",
-    "underlying": "0xFD471836031dc5108809D173A067e8486B9047A3"
+    "underlying": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
   },
   {
     "name": "FEI",
     "symbol": "FEI",
     "decimals": 18,
-    "address": "0x51A1ceB83B83F1985a81C295d1fF28Afef186E02",
+    "address": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
     "icon": "assets/images/tokens/FEI.svg",
-    "underlying": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc"
+    "underlying": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
   }
 ]
