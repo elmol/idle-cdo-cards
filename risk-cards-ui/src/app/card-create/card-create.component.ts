@@ -95,10 +95,10 @@ export class CardCreateComponent {
 
   updateAPR() {
     const cardItem = this.cardForm.get('cardItem').value;
-    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => {this.apr = v; this.disableMint = this.apr === 0;});
+    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => {this.apr = v; this.disableMint = this.apr === 0 || this.isNotEnoughAmount();});
 
     const cardItemFEI = this.cardForm.get('cardItemFEI').value;
-    this.ps.getApr(cardItemFEI.idleCDO, cardItemFEI.exposure).then((v) => {this.aprFEI = v; this.disableMint = this.aprFEI === 0;});
+    this.ps.getApr(cardItemFEI.idleCDO, cardItemFEI.exposure).then((v) => {this.aprFEI = v; this.disableMint = this.aprFEI === 0 || this.isNotEnoughAmount();});
   }
 
   updateUnderlyingBalance() {
@@ -109,6 +109,10 @@ export class CardCreateComponent {
     this.cardForm.get('cardItem').get('exposure').setValue(50);
     this.cardForm.get('cardItemFEI').get('exposure').setValue(50);
     this.updateAPR();
+  }
+
+  isNotEnoughAmount() {
+    return Number(this.cardForm.get('cardItem').get('amount').value) <= 0 && Number(this.cardForm.get('cardItemFEI').get('amount').value) <= 0;
   }
 
 }
