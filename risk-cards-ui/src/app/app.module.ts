@@ -8,12 +8,14 @@ import { Web3Service } from './blockchain/web3.service';
 import { CardCreateComponent } from './card-create/card-create.component';
 import { CardComponent } from './card/card.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { CardGroupComponent } from './card-group/card-group.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardCreateComponent,
     CardComponent,
+    CardGroupComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxSliderModule],
   providers: [CardService, Web3Service],

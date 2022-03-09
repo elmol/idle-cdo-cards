@@ -20,7 +20,7 @@ Show your creativity: in this challenge, you should create and develop a product
 
 It should be seen it as an initial seed and **proof of concept** to start building on Idle Tranches protocol.
 
-[issue-1](https://github.com/elmol/idle-cdo-cards/issues/1) implementation: Allowing an investor to mint cards not only for IdleCDO DAI but also IdleFEI CDO.
+[issue-1](https://github.com/elmol/idle-cdo-cards/issues/3) implementation: Allow Idle Cards combining IdleDAI + IdleFEI CDOs.
 
 ### Demo
 
@@ -52,10 +52,20 @@ The code is located in https://github.com/elmol/idle-cdo-cards/tree/main/risk-ca
 You can find the Idle CDO Card contract in the idle-tranches fork https://github.com/elmol/idle-tranches
 
 **Contract Files**: 
-Card Manager: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contracts/IdleCDOCardManager.sol
-Card: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contracts/IdleCDOCard.sol
+- Card Manager: https://github.com/elmol/idle-tranches/blob/issue-3-combining-dai-fei/contracts/IdleCDOCardManager.sol
+- Card: https://github.com/elmol/idle-tranches/blob/issue-3-combining-dai-fei/contracts/IdleCDOCard.sol
+- ERC721 Simple Composite: https://github.com/elmol/idle-tranches/blob/issue-3-combining-dai-fei/contracts/ERC721SimpleComposite.sol
 
 #### Deploy for manual testing
+1. Clone idle-tranches fork https://github.com/elmol/idle-tranches and checkout the branch issue-3-combining-dai-fei
+2. Be sure that you have configured your alchemy key in .env file
+3. Upload local node with hardhat
+
+```
+npx hardhat node
+```
+
+4. Deploy Contracts 
 ```
 # npx hardhat deploy-cards-test --network localhost
 
@@ -69,12 +79,28 @@ Card: https://github.com/elmol/idle-tranches/blob/issue-1-allow-fei-cards/contra
 ================================================================================
 ```
 
+5. Connect through metamask to localhost:8545 and import the <br>
+    _account:_ 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 <br>
+    _PK:_ 59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d <br>
+    *Caveat:* be sure that the configured chainId in metamask is *31337* <br>
+
+
+6. Go to  https://elmol.github.io/idle-cdo-cards/
+
+
+
 #### Test Coverage
 
 File                               |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -----------------------------------|----------|----------|----------|----------|----------------|
   IdleCDOCard.sol                  |      100 |      100 |      100 |      100 |                |
   IdleCDOCardManager.sol           |      100 |      100 |      100 |      100 |                |
+
+#### Gas Report
+In order to generate the gas report the following env variable should be configured in .env files in https://github.com/elmol/idle-tranches project
+```
+REPORT_GAS=true
+```
 
 ## Next steps and open discussion
 

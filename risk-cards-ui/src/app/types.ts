@@ -9,3 +9,8 @@ export interface Card extends CardForm {
   apr: number;
   idleCDO: any;
 }
+
+export interface CardGroup {
+  tokenId: number;
+  cards: Card[];
+}

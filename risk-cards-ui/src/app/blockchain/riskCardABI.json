@@ -122,6 +122,11 @@
         "internalType": "uint256",
         "name": "_tokenId",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
       }
     ],
     "name": "balance",
@@ -168,13 +173,7 @@
       }
     ],
     "name": "burn",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "toRedeem",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -183,6 +182,11 @@
       {
         "internalType": "uint256",
         "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -214,6 +218,25 @@
         "internalType": "struct IdleCDOCardManager.Card",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cardIndexes",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_cardIndexes",
+        "type": "uint256[]"
       }
     ],
     "stateMutability": "view",
@@ -270,19 +293,6 @@
         "internalType": "contract IdleCDO[]",
         "name": "",
         "type": "address[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "idleCDOToken",
-    "outputs": [
-      {
-        "internalType": "contract IERC20Detailed",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -346,6 +356,50 @@
       {
         "internalType": "uint256",
         "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "mint",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_idleCDOPos1Address",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_riskPos1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amountPos1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_idleCDOPos2Address",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_riskPos2",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amountPos2",
         "type": "uint256"
       }
     ],
