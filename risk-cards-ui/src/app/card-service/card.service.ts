@@ -47,7 +47,7 @@ export class CardService {
 
   createCard(cardItems: CardForm[]) {
     if(cardItems.length < 2 ) {
-      cardItems.push({ idleCDOAddress: cardItems[0].idleCDOAddress, exposure: 0, amount: 0 });
+      cardItems.push({ idleCDOAddress: cardItems[0].idleCDOAddress, exposure: 0, amount: 0 ,apr:0, idleCDO:{}});
     }
 
     this.web3.executeTransaction(

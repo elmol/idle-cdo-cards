@@ -1,13 +1,13 @@
 export interface CardForm {
+  idleCDOAddress: string; // idleCDOAddress 0x...
   amount: number; // amount 18d
   exposure: number; // exposure 18d
-  idleCDOAddress: string; // idleCDOAddress 0x...
+  apr: number;
+  idleCDO: any;
 }
 
 export interface Card extends CardForm {
   tokenId: number;
-  apr: number;
-  idleCDO: any;
 }
 
 export interface CardGroup {

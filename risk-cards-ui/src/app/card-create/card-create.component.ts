@@ -79,9 +79,16 @@ export class CardCreateComponent {
       exposure: cardItem.exposure,
       amount: cardItem.amount,
       idleCDOAddress: cardItem.idleCDO.address,
+      apr: this.apr,
+      idleCDO: this.cardForm.get('idleCDO').value
     };
     this.cardItems.push(cardItemForm);
     console.log("Card items added: ", this.cardItems);
+  }
+
+  onRemoveCardItem(cardItem: CardForm) {
+     this.cardItems = this.cardItems.filter((item) => item !== cardItem);
+     console.log("Card items removed: ", this.cardItems);
   }
 
   onUserChange(changeContext: ChangeContext): void {
