@@ -45,15 +45,19 @@ export class CardService {
           .toNumber() / 100;
   }
 
-  createCard(card: CardForm[]) {
+  createCard(cardItems: CardForm[]) {
+    if(cardItems.length < 2 ) {
+      cardItems.push({ idleCDOAddress: cardItems[0].idleCDOAddress, exposure: 0, amount: 0 });
+    }
+
     this.web3.executeTransaction(
       'mint',
-      card[0].idleCDOAddress,
-      toBN(card[0].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
-      card[1].idleCDOAddress,
-      toBN(card[1].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card[1].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16)))
+      cardItems[0].idleCDOAddress,
+      toBN(cardItems[0].exposure).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(cardItems[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
+      cardItems[1].idleCDOAddress,
+      toBN(cardItems[1].exposure).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(cardItems[1].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16)))
     );
   }
 

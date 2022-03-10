@@ -31,6 +31,7 @@ export class CardCreateComponent {
   idleCDOs;
   selectDisabled = 'disabled';
   disableMint = false;
+  cardItems:CardForm[] = [];
 
   @Output() cardCreated: EventEmitter<CardForm[]> = new EventEmitter();
 
@@ -67,20 +68,20 @@ export class CardCreateComponent {
   }
 
   submitForm() {
+    console.log("Card items to mint: ", this.cardItems);
+    this.cardCreated.emit(this.cardItems);
+    this.cardItems = [];
+  }
+
+  onAddCardItem(changeContext: ChangeContext) {
     const cardItem = this.cardForm.get('cardItem').value;
-    const formData: CardForm = {
+    const cardItemForm: CardForm = {
       exposure: cardItem.exposure,
       amount: cardItem.amount,
       idleCDOAddress: cardItem.idleCDO.address,
     };
-    const cardItemFEI = this.cardForm.get('cardItemFEI').value;
-    const formDataFEI: CardForm = {
-      exposure: cardItemFEI.exposure,
-      amount: cardItemFEI.amount,
-      idleCDOAddress: cardItemFEI.idleCDO.address,
-    };
-
-    this.cardCreated.emit([formData, formDataFEI]);
+    this.cardItems.push(cardItemForm);
+    console.log("Card items added: ", this.cardItems);
   }
 
   onUserChange(changeContext: ChangeContext): void {
