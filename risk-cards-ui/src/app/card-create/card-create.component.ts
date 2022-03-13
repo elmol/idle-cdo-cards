@@ -29,6 +29,7 @@ export class CardCreateComponent {
     hidePointerLabels: true,
   };
   idleCDOs;
+  initialIdleCDOs;
   selectDisabled = 'disabled';
   disableMint = false;
   cardItems:CardForm[] = [];
@@ -55,6 +56,7 @@ export class CardCreateComponent {
   ngOnInit() {
     this.ps.getIdleCDOs().then((cdos) => {
       this.idleCDOs = cdos;
+      this.initialIdleCDOs = cdos;
       this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
       this.cardForm.get('idleCDOFEI').setValue(this.idleCDOs[1]);
       this.updateIdleCDO();
@@ -84,16 +86,26 @@ export class CardCreateComponent {
     };
     this.cardItems.push(cardItemForm);
     console.log("Card items added: ", this.cardItems);
+    this.updateIdleCDOs();
   }
 
   onRemoveCardItem(cardItem: CardForm) {
      this.cardItems = this.cardItems.filter((item) => item !== cardItem);
+     this.updateIdleCDOs();
      console.log("Card items removed: ", this.cardItems);
   }
 
   onUserChange(changeContext: ChangeContext): void {
     this.updateIdleCDO();
     this.updateAPR();
+  }
+
+  updateIdleCDOs() {
+    this.idleCDOs = this.initialIdleCDOs.filter((item) => this.cardItems.findIndex((cardItem) => cardItem.idleCDO === item) === -1);
+    if(this.idleCDOs.length !== 0) {
+      this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
+    }
+    console.log("Idle CDOs left: ", this.idleCDOs);
   }
 
   updateIdleCDO () {
