@@ -102,8 +102,11 @@ export class CardCreateComponent {
 
   updateIdleCDOs() {
     this.idleCDOs = this.initialIdleCDOs.filter((item) => this.cardItems.findIndex((cardItem) => cardItem.idleCDO === item) === -1);
-    if(this.idleCDOs.length !== 0) {
+    if(this.idleCDOs.length === 0) {
+       this.cardForm.disable();
+    } else {
       this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
+      this.cardForm.enable();
     }
     console.log("Idle CDOs left: ", this.idleCDOs);
   }

@@ -32,7 +32,7 @@
                     cardForm.get('idleCDO').value.name }})</small>
                 </div>
                 <div class="col-md-3">
-                  <button type='button' class="btn btn-sm btn-primary btn-block" (click)="onAddCardItem($event)">Add</button>
+                  <button type='button' class="btn btn-sm btn-primary btn-block" [attr.disabled]="!idleCDOs || idleCDOs.length===0? 'disabled' : null"  (click)="onAddCardItem($event)">Add</button>
                 </div>
               </div>
 
