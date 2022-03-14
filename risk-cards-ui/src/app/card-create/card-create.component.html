@@ -8,7 +8,7 @@
       <div class="card">
         <div class="card-body text-center">
           <div class="container">
-            <select formControlName="idleCDO" class="form-control custom-select" [attr.disabled]="!idleCDOs || idleCDOs.length===0? 'disabled' : null" (change)='onUserChange($event)'>
+            <select formControlName="idleCDO" class="form-control custom-select" [disabled]="isIdleCDOsEmpty()" (change)='onUserChange($event)'>
               <option [ngValue]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO.name}}</option>
             </select>
           </div>
@@ -32,7 +32,7 @@
                     cardForm.get('idleCDO').value.name }})</small>
                 </div>
                 <div class="col-md-3">
-                  <button type='button' class="btn btn-sm btn-primary btn-block" [attr.disabled]="!idleCDOs || idleCDOs.length===0? 'disabled' : null"  (click)="onAddCardItem($event)">Add</button>
+                  <button type='button' class="btn btn-sm btn-primary btn-block" [disabled]="isNotAbleToAddCardItem()"  (click)="onAddCardItem($event)">Add</button>
                 </div>
               </div>
 

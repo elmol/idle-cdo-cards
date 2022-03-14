@@ -16,7 +16,6 @@ export class CardCreateComponent {
   cardForm: FormGroup;
   underlyingBalance = 0;
 
-
   exposure = 50;
   apr = 0.0;
   options: Options = {
@@ -29,7 +28,7 @@ export class CardCreateComponent {
   initialIdleCDOs;
   selectDisabled = 'disabled';
   disableMint = false;
-  cardItems:CardForm[] = [];
+  cardItems: CardForm[] = [];
 
   @Output() cardCreated: EventEmitter<CardForm[]> = new EventEmitter();
 
@@ -53,17 +52,17 @@ export class CardCreateComponent {
       this.updateAPR();
       this.updateUnderlyingBalance();
     });
-        // TODO: emit other event type
-        this.ps.onEvent('Transfer').subscribe(() => {
-          this.updateUnderlyingBalance();
-          this.cardItems = [];
-          this.idleCDOs = this.initialIdleCDOs;
-          this.updateIdleCDOs();
-        });
+    // TODO: emit other event type
+    this.ps.onEvent('Transfer').subscribe(() => {
+      this.updateUnderlyingBalance();
+      this.cardItems = [];
+      this.idleCDOs = this.initialIdleCDOs;
+      this.updateIdleCDOs();
+    });
   }
 
   submitForm() {
-    console.log("Card items to mint: ", this.cardItems);
+    console.log('Card items to mint: ', this.cardItems);
     this.cardCreated.emit(this.cardItems);
   }
 
@@ -74,17 +73,17 @@ export class CardCreateComponent {
       amount: cardItem.amount,
       idleCDOAddress: cardItem.idleCDO.address,
       apr: this.apr,
-      idleCDO: this.cardForm.get('idleCDO').value
+      idleCDO: this.cardForm.get('idleCDO').value,
     };
     this.cardItems.push(cardItemForm);
-    console.log("Card items added: ", this.cardItems);
+    console.log('Card items added: ', this.cardItems);
     this.updateIdleCDOs();
   }
 
   onRemoveCardItem(cardItem: CardForm) {
-     this.cardItems = this.cardItems.filter((item) => item !== cardItem);
-     this.updateIdleCDOs();
-     console.log("Card items removed: ", this.cardItems);
+    this.cardItems = this.cardItems.filter((item) => item !== cardItem);
+    this.updateIdleCDOs();
+    console.log('Card items removed: ', this.cardItems);
   }
 
   onUserChange(changeContext: ChangeContext): void {
@@ -93,34 +92,53 @@ export class CardCreateComponent {
   }
 
   updateIdleCDOs() {
-    this.idleCDOs = this.initialIdleCDOs.filter((item) => this.cardItems.findIndex((cardItem) => cardItem.idleCDO === item) === -1);
-    if(this.idleCDOs.length === 0) {
-       this.cardForm.disable();
+    this.idleCDOs = this.initialIdleCDOs.filter(
+      (item) =>
+        this.cardItems.findIndex((cardItem) => cardItem.idleCDO === item) === -1
+    );
+    if (this.idleCDOs.length === 0) {
+      this.cardForm.disable();
     } else {
       this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
       this.cardForm.enable();
     }
-    console.log("Idle CDOs left: ", this.idleCDOs);
+    console.log('Idle CDOs left: ', this.idleCDOs);
   }
 
-  updateIdleCDO () {
-    this.cardForm.get('cardItem').get('idleCDO').setValue(this.cardForm.get('idleCDO').value);
+  updateIdleCDO() {
+    this.cardForm
+      .get('cardItem')
+      .get('idleCDO')
+      .setValue(this.cardForm.get('idleCDO').value);
   }
 
   updateAPR() {
     const cardItem = this.cardForm.get('cardItem').value;
-    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => {this.apr = v; this.disableMint = this.apr === 0 || this.isNotEnoughAmount();});
+    this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => {
+      this.apr = v;
+      this.disableMint = this.apr === 0 || this.isNotEnoughAmount();
+    });
   }
 
   updateUnderlyingBalance() {
-    this.ps.getUnderlyingBalance(this.idleCDOs[0]).then((balance) => {this.underlyingBalance = balance;});
-    this.cardForm.get('cardItem').get('amount').setValue("");
+    this.ps.getUnderlyingBalance(this.idleCDOs[0]).then((balance) => {
+      this.underlyingBalance = balance;
+    });
+    this.cardForm.get('cardItem').get('amount').setValue('');
     this.cardForm.get('cardItem').get('exposure').setValue(50);
     this.updateAPR();
   }
 
   isNotEnoughAmount() {
     return Number(this.cardForm.get('cardItem').get('amount').value) <= 0;
+  }
+
+  isIdleCDOsEmpty() {
+    return !this.idleCDOs || this.idleCDOs.length === 0;
+  }
+
+  isNotAbleToAddCardItem() {
+    return this.isIdleCDOsEmpty() || this.isNotEnoughAmount();
   }
 
 }

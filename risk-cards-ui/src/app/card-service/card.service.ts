@@ -46,18 +46,19 @@ export class CardService {
   }
 
   createCard(cardItems: CardForm[]) {
-    if(cardItems.length < 2 ) {
-      cardItems.push({ idleCDOAddress: cardItems[0].idleCDOAddress, exposure: 0, amount: 0 ,apr:0, idleCDO:{}});
+    const cardItemToMint: CardForm[] = [... cardItems];
+    if(cardItemToMint.length < 2 ) {
+      cardItemToMint.push({ idleCDOAddress: cardItems[0].idleCDOAddress, exposure: 0, amount: 0 ,apr:0, idleCDO:{}});
     }
 
     this.web3.executeTransaction(
       'mint',
-      cardItems[0].idleCDOAddress,
-      toBN(cardItems[0].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(cardItems[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
-      cardItems[1].idleCDOAddress,
-      toBN(cardItems[1].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(cardItems[1].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16)))
+      cardItemToMint[0].idleCDOAddress,
+      toBN(cardItemToMint[0].exposure).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(cardItemToMint[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
+      cardItemToMint[1].idleCDOAddress,
+      toBN(cardItemToMint[1].exposure).mul(toBN(10).pow(toBN(16))),
+      toBN(Math.trunc(cardItemToMint[1].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16)))
     );
   }
 
