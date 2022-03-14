@@ -8,7 +8,7 @@
       <div class="card">
         <div class="card-body text-center">
           <div class="container">
-            <select formControlName="idleCDO" class="form-control custom-select" [disabled]="isIdleCDOsEmpty()" (change)='onUserChange($event)'>
+            <select formControlName="idleCDO" class="form-control custom-select" [disabled]="isIdleCDOsEmpty()" (change)='onUserSelect($event)'>
               <option [ngValue]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO.name}}</option>
             </select>
           </div>

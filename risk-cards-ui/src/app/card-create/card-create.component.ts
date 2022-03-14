@@ -78,11 +78,13 @@ export class CardCreateComponent {
     this.cardItems.push(cardItemForm);
     console.log('Card items added: ', this.cardItems);
     this.updateIdleCDOs();
+    this.updateUnderlyingBalance();
   }
 
   onRemoveCardItem(cardItem: CardForm) {
     this.cardItems = this.cardItems.filter((item) => item !== cardItem);
     this.updateIdleCDOs();
+    this.updateUnderlyingBalance();
     console.log('Card items removed: ', this.cardItems);
   }
 
@@ -90,6 +92,13 @@ export class CardCreateComponent {
     this.updateIdleCDO();
     this.updateAPR();
   }
+
+  onUserSelect(changeContext: ChangeContext): void {
+    this.updateIdleCDO();
+    this.updateAPR();
+    this.updateUnderlyingBalance();
+  }
+
 
   updateIdleCDOs() {
     this.idleCDOs = this.initialIdleCDOs.filter(
@@ -99,8 +108,10 @@ export class CardCreateComponent {
     if (this.idleCDOs.length === 0) {
       this.cardForm.disable();
     } else {
-      this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
       this.cardForm.enable();
+      this.cardForm.get('idleCDO').setValue(this.idleCDOs[0]);
+      this.updateIdleCDO();
+      this.updateAPR();
     }
     console.log('Idle CDOs left: ', this.idleCDOs);
   }
@@ -121,7 +132,7 @@ export class CardCreateComponent {
   }
 
   updateUnderlyingBalance() {
-    this.ps.getUnderlyingBalance(this.idleCDOs[0]).then((balance) => {
+    this.ps.getUnderlyingBalance(this.cardForm.get('idleCDO').value).then((balance) => {
       this.underlyingBalance = balance;
     });
     this.cardForm.get('cardItem').get('amount').setValue('');
