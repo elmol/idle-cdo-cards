@@ -9,6 +9,8 @@ import { CardService } from './card-service/card.service';
 })
 export class AppComponent implements OnInit{
   cardGroups = this.ps.getCardGroups();
+  totalGroups = this.getTotalCards();
+  account = "0x0";
 
   constructor(private ps: CardService) {}
 
@@ -16,11 +18,21 @@ export class AppComponent implements OnInit{
     // TODO: emit other event type
     this.ps.onEvent('Transfer').subscribe(() => {
       this.cardGroups = this.ps.getCardGroups();
+      this.totalGroups = this.getTotalCards();
+    });
+    this.ps.getAccount().then(acc => {
+      if(acc) {
+        this.account = acc.slice(0, 6) + '...' + acc.slice(acc.length - 4);
+      }
     });
   }
 
   handleCardCreate(card: CardForm[]) {
     this.ps.createCard(card);
+  }
+
+  async getTotalCards(): Promise<number>{
+    return (await this.cardGroups)?.length;
   }
 
   handleCardBurn(tokenId: number) {

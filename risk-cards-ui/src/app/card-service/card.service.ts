@@ -30,6 +30,10 @@ export class CardService {
     return cards;
   }
 
+  async getAccount() {
+    return await this.web3.getAccount();
+  }
+
   async getApr(idleCDO, exposure: number) {
     const exp = toBN(exposure).mul(toBN(10).pow(toBN(16)));
     const apr = toBN(await this.web3.call('getApr', idleCDO.address, exp))
