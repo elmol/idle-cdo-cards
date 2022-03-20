@@ -27,7 +27,6 @@ export class CardCreateComponent {
   idleCDOs;
   initialIdleCDOs;
   selectDisabled = 'disabled';
-  disableMint = false;
   cardItems: CardForm[] = [];
 
   @Output() cardCreated: EventEmitter<CardForm[]> = new EventEmitter();
@@ -127,7 +126,6 @@ export class CardCreateComponent {
     const cardItem = this.cardForm.get('cardItem').value;
     this.ps.getApr(cardItem.idleCDO, cardItem.exposure).then((v) => {
       this.apr = v;
-      this.disableMint = this.apr === 0 || this.isNotEnoughAmount();
     });
   }
 
@@ -150,6 +148,10 @@ export class CardCreateComponent {
 
   isNotAbleToAddCardItem() {
     return this.isIdleCDOsEmpty() || this.isNotEnoughAmount();
+  }
+
+  isNotAbleToMint() {
+    return this.cardItems.length === 0;
   }
 
 }
