@@ -31,13 +31,15 @@ export class CardCreateComponent {
 
   @Output() cardCreated: EventEmitter<CardForm[]> = new EventEmitter();
 
+
   constructor(private fb: FormBuilder, private ps: CardService) {
+    const numericNumberReg= '^-?[0-9]\\d*(\\.\\d{1,2})?$';
     this.cardForm = this.fb.group({
       idleCDO: this.fb.control(''),
       cardItem: this.fb.group({
         idleCDO: this.fb.control(''),
         exposure: this.fb.control('', [Validators.required]),
-        amount: this.fb.control(''),
+        amount: this.fb.control('',[Validators.required,,Validators.pattern(numericNumberReg)]),
       }),
     });
   }
