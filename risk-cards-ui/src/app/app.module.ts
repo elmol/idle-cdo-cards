@@ -9,6 +9,7 @@ import { CardCreateComponent } from './card-create/card-create.component';
 import { CardComponent } from './card/card.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { CardGroupComponent } from './card-group/card-group.component';
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { CardGroupComponent } from './card-group/card-group.component';
     CardComponent,
     CardGroupComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxSliderModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxSliderModule, NgxCurrencyModule],
   providers: [CardService, Web3Service],
   bootstrap: [AppComponent],
 })

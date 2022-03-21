@@ -50,8 +50,8 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <div class="input-group">
-                      <input formControlName="amount" type="text" class="form-control form-control-sm text-right" (input)="onUserChange($event)"
-                        placeholder="0.00" />
+                      <input currencyMask formControlName="amount" type="text" class="form-control form-control-sm text-right"  [options]="{ allowNegative: false, precision:4, inputMode: CurrencyMaskInputMode.NATURAL }" (input)="onUserChange($event)"
+                         />
                     </div>
                     <small class="form-text text-muted text-center">Deposit amount ({{
                       cardForm.get('idleCDO').value.name }})</small>

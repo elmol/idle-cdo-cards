@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Options } from 'ng5-slider/options';
 import { CardService } from '../card-service/card.service';
 import { CardForm } from '../types';
+import { CurrencyMaskInputMode }  from "ngx-currency";
+
 
 @Component({
   selector: 'app-card-create',
@@ -28,6 +30,7 @@ export class CardCreateComponent {
   initialIdleCDOs;
   selectDisabled = 'disabled';
   cardItems: CardForm[] = [];
+  CurrencyMaskInputMode = CurrencyMaskInputMode;
 
   @Output() cardCreated: EventEmitter<CardForm[]> = new EventEmitter();
 
