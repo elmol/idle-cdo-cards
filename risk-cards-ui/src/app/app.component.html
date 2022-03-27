@@ -2,12 +2,16 @@
   <a class="navbar-brand mr-auto" href="#">
     <img src="favicon.ico" alt="Idle Risk Cards" width="40" height="34">
   </a>
-  <hr class="line-vertical"/>
   <h3>{{account}}</h3>
   <hr class="line-vertical"/>
   <h3>{{totalGroups | async}} cards</h3>
+  <hr class="line-vertical"/>
+  <div *ngFor="let recipient of idleCDOBalances | async | keyvalue: asIsOrder">
+    <span class="text-left align-middle"> <img class="img-thumbnail rounded-circle"
+      style="width: 40px; height: 40px" [src]="recipient.key.icon" alt="{{
+        recipient.key.name }}" />{{recipient.value  | number: "1.2-2"}}</span>
+  </div>
 </nav>
-
 
 <div class="container pt-5" style="width: 24rem;">
     <app-card-create (cardCreated)="handleCardCreate($event)" > </app-card-create>
