@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CardForm, CardGroup, IdleCDOBalance } from './types';
+import { CardForm, CardGroup } from './types';
 import { CardService } from './card-service/card.service';
 
 @Component({
