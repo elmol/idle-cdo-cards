@@ -226,6 +226,35 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_idleCDOAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "cardAddress",
+        "type": "address"
+      }
+    ],
+    "name": "cardBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "balanceAA",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "balanceBB",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_tokenId",
         "type": "uint256"
@@ -344,63 +373,19 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_idleCDOAddress",
-        "type": "address"
+        "internalType": "address[]",
+        "name": "_addresses",
+        "type": "address[]"
       },
       {
-        "internalType": "uint256",
-        "name": "_risk",
-        "type": "uint256"
+        "internalType": "uint256[]",
+        "name": "_amounts",
+        "type": "uint256[]"
       },
       {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "mint",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_idleCDOPos1Address",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_riskPos1",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amountPos1",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_idleCDOPos2Address",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_riskPos2",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amountPos2",
-        "type": "uint256"
+        "internalType": "uint256[]",
+        "name": "_exposures",
+        "type": "uint256[]"
       }
     ],
     "name": "mint",
