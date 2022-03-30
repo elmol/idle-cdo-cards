@@ -14,13 +14,24 @@
           recipient.key.name }}" />{{recipient.value | number: "1.2-2"}}</span>
     </div>
   </div>
+  <div *ngIf="!isActiveCardCreation" class="form-inline">
+    <button type="button" class="btn btn-sm btn-primary btn-block" (click)="onConnect()">Connect</button>
+  </div>
 </nav>
 
-<div class="container pt-5" style="width: 24rem;" [ngClass]="{disabledDiv: !isActiveCardCreation}">
+<div *ngIf="!isAnAccount" class="alert alert-danger" role="alert">
+  Network is not connected. Please connect to the network.
+</div>
+
+<div *ngIf="!isValidNetwork && isAnAccount" class="alert alert-danger" role="alert">
+  Network is not valid. Please change to the correct network and reconnect.
+</div>
+
+<div *ngIf="isValidNetwork" class="container pt-5" style="width: 24rem;" [ngClass]="{disabledDiv: !isActiveCardCreation}">
     <app-card-create (cardCreated)="handleCardCreate($event)"> </app-card-create>
 </div>
 
-<div class="d-flex container-fluid">
+<div *ngIf="isValidNetwork" class="d-flex container-fluid">
   <div class="row">
     <app-card-group *ngFor="let cardGroup of cardGroups | async" [cards]="cardGroup.cards" [tokenId]="cardGroup.tokenId" (cardBurned)="handleCardBurn($event)">
     </app-card-group>

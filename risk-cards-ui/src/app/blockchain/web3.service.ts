@@ -13,6 +13,7 @@ declare var window: any;
   providedIn: 'root',
 })
 export class Web3Service {
+
   private web3: Web3;
   private contract: Contract;
 
@@ -55,6 +56,10 @@ export class Web3Service {
   async call(fnName: string, ...args: any[]) {
     const acc = await this.getAccount();
     return this.contract.methods[fnName](...args).call({ from: acc });
+  }
+
+  async getNetworkId() {
+    return this.web3.eth.net.getId();
   }
 
   onEvents(event: string) {
