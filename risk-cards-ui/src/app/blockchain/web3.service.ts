@@ -31,6 +31,18 @@ export class Web3Service {
       window.ethereum.enable().catch((err) => {
         console.log(err);
       });
+
+      // detect Metamask account change
+      window.ethereum.on('accountsChanged', function (accounts) {
+        console.log('accountsChanges', accounts);
+        window.location.reload();
+      });
+
+      // detect Network account change
+      window.ethereum.on('networkChanged', function (networkId) {
+        console.log('networkChanged', networkId);
+        window.location.reload();
+      });
     } else {
       console.warn('Metamask not found. Install or enable Metamask.');
     }
