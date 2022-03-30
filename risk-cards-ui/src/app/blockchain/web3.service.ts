@@ -42,6 +42,9 @@ export class Web3Service {
   async getERC20Balance(erc20Address: string): Promise<string> {
     const erc20contract = new this.web3.eth.Contract(erc20Abi, erc20Address);
     const acc = await this.getAccount();
+    if(!acc || acc.length === 0) {
+      return "0";
+    }
     return await erc20contract.methods.balanceOf(acc).call({ from: acc });
   }
   async executeTransaction(fnName: string, ...args: any[]): Promise<void> {

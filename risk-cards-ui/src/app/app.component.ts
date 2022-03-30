@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   totalGroups = this.getTotalCards();
   idleCDOBalances = this.getIdleCDOBalances(this.cardGroups);
   account = '0x0';
+  isActiveCardCreation=false;
 
   constructor(private ps: CardService) {}
 
@@ -22,13 +23,11 @@ export class AppComponent implements OnInit {
       this.totalGroups = this.getTotalCards();
       this.idleCDOBalances = this.getIdleCDOBalances(this.cardGroups);
     });
-    this.getIdleCDOBalances(this.cardGroups).then((balances) => {
-      console.log(balances);
-    });
 
     this.ps.getAccount().then((acc) => {
-      if (acc) {
+      if (acc && acc.length > 0) {
         this.account = acc.slice(0, 6) + '...' + acc.slice(acc.length - 4);
+        this.isActiveCardCreation = true;
       }
     });
   }

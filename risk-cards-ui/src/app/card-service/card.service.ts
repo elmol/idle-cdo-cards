@@ -14,11 +14,12 @@ export class CardService {
 
   idleCDOs = idleCDOsData.default;
 
+
   async getCardGroups(): Promise<CardGroup[]> {
     const acc = await this.web3.getAccount();
     const name = await this.web3.call('name');
-    console.log('contract name: ', name, ' account: ', acc);
-    const balance = await this.web3.call('balanceOf', acc);
+    console.log('contract name:', name, ' account:', acc);
+    const balance = await this.getBalance(acc)
     console.log('Idle Risk Cards for balance of Cards: ', balance);
 
     const cards: CardGroup[] = [];
@@ -124,5 +125,12 @@ export class CardService {
 
   onEvent(name: string) {
     return this.web3.onEvents(name);
+  }
+
+  private async getBalance (acc) {
+    if(!acc || acc.length===0) {
+      return 0;
+    }
+    return await this.web3.call('balanceOf', acc);
   }
 }
