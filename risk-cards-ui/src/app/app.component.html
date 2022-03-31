@@ -15,16 +15,20 @@
     </div>
   </div>
   <div *ngIf="!isActiveCardCreation" class="form-inline">
-    <button type="button" class="btn btn-sm btn-primary btn-block" (click)="onConnect()">Connect</button>
+    <button type="button" class="btn btn-primary btn-block btn-lg" (click)="onConnect()">Connect</button>
   </div>
 </nav>
 
-<div *ngIf="!isAnAccount" class="alert alert-danger" role="alert">
-  Network is not connected. Please connect to the network.
+<div *ngIf="!isAnAccount" class="container pt-5">
+  <div class="alert alert-danger text-center" role="alert">
+    Network is not connected. Please connect to the network.
+  </div>
 </div>
 
-<div *ngIf="!isValidNetwork && isAnAccount" class="alert alert-danger" role="alert">
-  Network is not valid. Please change to the correct network and reconnect.
+<div *ngIf="!isValidNetwork && isAnAccount" class="container pt-5">
+  <div class="alert alert-danger text-center" role="alert">
+    Network is not valid. Please change to the correct network and reconnect.
+  </div>
 </div>
 
 <div *ngIf="isValidNetwork" class="container pt-5" style="width: 24rem;" [ngClass]="{disabledDiv: !isActiveCardCreation}">
