@@ -15,7 +15,10 @@
     </div>
   </div>
   <div *ngIf="!isActiveCardCreation" class="form-inline">
-    <button type="button" class="btn btn-primary btn-block btn-lg" (click)="onConnect()">Connect</button>
+    <button type="button" class="btn btn-primary btn-block btn-lg" (click)="onConnect()">
+      <img class="img-thumbnail rounded-circle" src="assets/images/metamask.svg" alt="Idle Risk Cards" width="45" height="39">
+      Connect
+    </button>
   </div>
 </nav>
 
