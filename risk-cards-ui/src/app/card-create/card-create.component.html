@@ -32,7 +32,7 @@
                     cardForm.get('idleCDO').value.name }})</small>
                 </div>
                 <div class="col-md-3">
-                  <button type='button' class="btn btn-sm btn-primary btn-block" [disabled]="isNotAbleToAddCardItem()"  (click)="onAddCardItem($event)">Add</button>
+                  <button type='button' class="btn btn-sm btn-primary btn-block" [disabled]="isNotAbleToAddCardItem() || !cardItemAmountName.valid"  (click)="onAddCardItem($event)">Add</button>
                 </div>
               </div>
 
@@ -53,8 +53,9 @@
                       <input currencyMask formControlName="amount" type="text" class="form-control form-control-sm text-right"  [options]="{ allowNegative: false, inputMode: CurrencyMaskInputMode.NATURAL, allowZero: true }"  (focus)="$event.target.select()" (input)="onUserChange($event)"
                          />
                     </div>
-                    <small class="form-text text-muted text-center">Deposit amount ({{
+                    <small class="form-text text-muted text-center" *ngIf="!cardItemAmountName.hasError('amountExceeded')">Deposit amount ({{
                       cardForm.get('idleCDO').value.name }})</small>
+                    <small class="form-text alert-danger text-center" *ngIf="cardItemAmountName.hasError('amountExceeded')">{{ cardForm.get('idleCDO').value.name }} balance exceeded</small>
                   </div>
                 </div>
               </div>

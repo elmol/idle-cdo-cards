@@ -1,12 +1,14 @@
 import { ChangeContext, PointerType } from '@angular-slider/ngx-slider';
 import { ConditionalExpr } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, Validators,ValidationErrors } from '@angular/forms';
 import { Options } from 'ng5-slider/options';
 import { CardService } from '../card-service/card.service';
 import { CardForm } from '../types';
 import { CurrencyMaskInputMode }  from "ngx-currency";
+import { Observable, of } from 'rxjs';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -42,10 +44,18 @@ export class CardCreateComponent {
       cardItem: this.fb.group({
         idleCDO: this.fb.control(''),
         exposure: this.fb.control('', [Validators.required]),
-        amount: this.fb.control('',[Validators.required,,Validators.pattern(numericNumberReg)]),
+        amount: this.fb.control('',{ validators: [Validators.required,Validators.pattern(numericNumberReg)],asyncValidators: [this.createAmountBalanceValidator()]}),
       }),
     });
   }
+
+  createAmountBalanceValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      return of(this.underlyingBalance).pipe(
+        map((result: number) => control.value <= result ? null : {amountExceeded: true})
+      );
+    };
+  };
 
   ngOnInit() {
     this.ps.getIdleCDOs().then((cdos) => {
@@ -157,6 +167,10 @@ export class CardCreateComponent {
 
   isNotAbleToMint() {
     return this.cardItems.length === 0;
+  }
+
+  get cardItemAmountName() {
+     return this.cardForm.get('cardItem').get('amount');
   }
 
 }
