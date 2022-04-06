@@ -20,7 +20,7 @@ Show your creativity: in this challenge, you should create and develop a product
 
 It should be seen it as an initial seed and **proof of concept** to start building on Idle Tranches protocol.
 
-[issue-1](https://github.com/elmol/idle-cdo-cards/issues/3) implementation: Allow Idle Cards combining IdleDAI + IdleFEI CDOs.
+[issue-1](https://github.com/elmol/idle-cdo-cards/issues/5) implementation: Allow Idle Cards combining N types of CDOs. 
 
 ### Demo
 
@@ -52,12 +52,11 @@ The code is located in https://github.com/elmol/idle-cdo-cards/tree/main/risk-ca
 You can find the Idle CDO Card contract in the idle-tranches fork https://github.com/elmol/idle-tranches
 
 **Contract Files**: 
-- Card Manager: https://github.com/elmol/idle-tranches/blob/issue-3-combining-dai-fei/contracts/IdleCDOCardManager.sol
-- Card: https://github.com/elmol/idle-tranches/blob/issue-3-combining-dai-fei/contracts/IdleCDOCard.sol
-- ERC721 Simple Composite: https://github.com/elmol/idle-tranches/blob/issue-3-combining-dai-fei/contracts/ERC721SimpleComposite.sol
+- Card Manager: https://github.com/elmol/idle-tranches/tree/issue-5-combining-n-cdos/contracts/IdleCDOCardManager.sol
+- Card: https://github.com/elmol/idle-tranches/tree/issue-5-combining-n-cdos/contracts/IdleCDOCard.sol
 
 #### Deploy for manual testing
-1. Clone idle-tranches fork https://github.com/elmol/idle-tranches and checkout the branch issue-3-combining-dai-fei
+1. Clone idle-tranches fork https://github.com/elmol/idle-tranches and checkout the branch issue-5-combining-n-cdos
 2. Be sure that you have configured your alchemy key in .env file
 3. Upload local node with hardhat
 
@@ -70,11 +69,13 @@ npx hardhat node
 # npx hardhat deploy-cards-test --network localhost
 
 ================================================================================
-📤 Idle CDO Cards deployed at 0xCace1b78160AE76398F486c8a18044da0d66d86D
-📤 Idle CDO DAI deployed at 0xDC11f7E700A4c898AE5CAddB1082cFfa76512aDD by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-💵 DAI Underlying Token address: 0xFD471836031dc5108809D173A067e8486B9047A3
-📤 Idle CDO FEI deployed at 0x51A1ceB83B83F1985a81C295d1fF28Afef186E02 by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-💵 FEI Underlying Token address: 0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc
+📤 Idle CDO Cards deployed at 0xdbC43Ba45381e02825b14322cDdd15eC4B3164E6
+📤 Idle CDO DAI deployed at 0x59b670e9fA9D0A427751Af201D676719a970857b by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+💵 DAI Underlying Token address: 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
+📤 Idle CDO FEI deployed at 0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1 by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+💵 FEI Underlying Token address: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+📤 Idle CDO USDC deployed at 0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44 by owner 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+💵 USDC Underlying Token address: 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
 🔎 Buyer address: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
 ================================================================================
 ```
