@@ -1,12 +1,11 @@
 <nav class="navbar navbar-light bg-light border-bottom">
   <a class="navbar-brand mr-auto" href="#">
-    <img src="assets/images/logo-idle-cards.png" alt="Idle Risk Cards" width="170" height="60">
+    <img src="assets/images/logo-idle-cards.png" alt="Idle Risk Cards" width="160" height="50">
   </a>
   <div *ngIf="isActiveCardCreation" class="form-inline">
-    <img src="assets/images/metamask.svg" alt="Idle Risk Cards" width="45" height="39">
-    <h3>{{account}}</h3>
+    <h3><img src="assets/images/metamask.svg" alt="metamask" width="45" height="39"> {{account}}</h3>
     <hr class="line-vertical" />
-    <h3>{{totalGroups | async}} cards</h3>
+    <h3><img src="favicon.ico" alt="metamask" width="45" height="39"> {{totalGroups | async}} cards</h3>
     <hr class="line-vertical" />
     <div *ngFor="let recipient of idleCDOBalances | async | keyvalue: asIsOrder">
       <span class="text-left align-middle"> <img class="img-thumbnail rounded-circle" style="width: 40px; height: 40px"
