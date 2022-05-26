@@ -1,24 +1,35 @@
 <div class="card" style="width: 30rem;">
-  <div class="card-header l-bg-blue-dark text-center"> Idle CDO Risk Cards </div>
   <div class="card-body">
-
-
     <form [formGroup]="cardForm" (ngSubmit)="submitForm()">
+      <!-- SELECTOR -->
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="container">
+            <select formControlName="idleCDO" class="form-control custom-select" [disabled]="isIdleCDOsEmpty()" (change)='onUserSelect($event)'>
+              <option [ngValue]="idleCDO" *ngFor="let idleCDO of idleCDOs">{{idleCDO.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       <div formGroupName="cardItem">
         <div class="card">
           <div class="card-body text-center">
             <div class="container">
 
               <div class="row mb-3">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label class="text-muted small"> <img class="img-thumbnail rounded-circle"
-                      style="width: 40px; height: 40px" [src]="cardForm.get('idleCDO').value.icon" alt="" /> {{
-                    cardForm.get('idleCDO').value.name }}</label>
+                      style="width: 38px; height: 38px" [src]="cardForm.get('idleCDO').value.icon" alt="" /> <small> {{
+                    cardForm.get('idleCDO').value.name }}</small></label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <span>{{ underlyingBalance | number: "1.2-2" }}</span>
                   <small class="form-text text-muted text-center">Current Balance ({{
                     cardForm.get('idleCDO').value.name }})</small>
+                </div>
+                <div class="col-md-3">
+                  <button type='button' class="btn btn-sm btn-primary btn-block" [disabled]="isNotAbleToAddCardItem() || !cardItemAmountName.valid"  (click)="onAddCardItem($event)">Add</button>
                 </div>
               </div>
 
@@ -36,16 +47,17 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <div class="input-group">
-                      <input formControlName="amount" type="text" class="form-control form-control-sm text-right" (input)="onUserChange($event)"
-                        placeholder="0.00" />
+                      <input currencyMask formControlName="amount" type="text" class="form-control form-control-sm text-right"  [options]="{ allowNegative: false, inputMode: CurrencyMaskInputMode.NATURAL, allowZero: true }"  (focus)="$event.target.select()" (input)="onUserChange($event)"
+                         />
                     </div>
-                    <small class="form-text text-muted text-center">Deposit amount ({{
+                    <small class="form-text text-muted text-center" *ngIf="!cardItemAmountName.hasError('amountExceeded')">Deposit amount ({{
                       cardForm.get('idleCDO').value.name }})</small>
+                    <small class="form-text alert-danger text-center" *ngIf="cardItemAmountName.hasError('amountExceeded')">{{ cardForm.get('idleCDO').value.name }} balance exceeded</small>
                   </div>
                 </div>
               </div>
 
-              <div class="custom-ngx-slider">
+              <div class="custom-ngx-slider row">
                 <ngx-slider formControlName="exposure" [(value)]="exposure" [options]="options"
                   (userChange)="onUserChange($event)" class="form-control-sm">
                 </ngx-slider>
@@ -56,60 +68,40 @@
           </div>
         </div>
       </div>
-      <div formGroupName="cardItemFEI">
+      <div class="card-statistic-3 p-2" *ngIf="cardItems.length > 0 ">
         <div class="card">
           <div class="card-body text-center">
             <div class="container">
 
-              <div class="row mb-3">
-                <div class="col-md-4">
-                  <label class="text-muted small"> <img class="img-thumbnail rounded-circle"
-                      style="width: 40px; height: 40px" [src]="cardForm.get('idleCDOFEI').value.icon" alt="" /> {{
-                    cardForm.get('idleCDOFEI').value.name }}</label>
+              <div class="row align-items-center d-flex" *ngFor="let cardItem of cardItems">
+                <div class="col-sm-2 text-center">
+                  <img class="img-thumbnail rounded-circle" style="width: 35px; height: 35px"
+                    [src]="cardItem.idleCDO.icon" />
+                  <label class="text-uppercase small"><small class="text-uppercase small text-muted">{{ cardItem.idleCDO.name }}</small> </label>
                 </div>
-                <div class="col-md-8">
-                  <span>{{ underlyingBalanceFEI | number: "1.2-2" }}</span>
-                  <small class="form-text text-muted text-center">Current Balance ({{
-                    cardForm.get('idleCDOFEI').value.name }})</small>
+                <div class="col-sm-2 text-center">
+                  <span class="mb-0">{{ cardItem.exposure | number:'1.0-0' }}</span>
+                  <div class="text-uppercase  small">RISK</div>
                 </div>
-              </div>
-
-              <div class="row mb-0">
-                <div class="col-md-3">
-                  <span>{{ exposureFEI | number: "1.0-0" }}%</span>
-                  <div class="text-uppercase text-muted small">risk</div>
+                <div class="col-sm-3 text-center">
+                  <span class="mb-0">{{cardItem.apr | number:'1.2-2'}}%</span>
+                  <div class="text-uppercase small">APR</div>
                 </div>
-
-                <div class="col-md-3">
-                  <span>{{ aprFEI | number: "1.2-2" }}%</span>
-                  <div class="text-uppercase text-muted small">APR</div>
+                <div class="col-sm-4 text-right">
+                  <span class="mb-0 font-weight-bold">{{ cardItem.amount | number: "1.2-2" }}</span>
+                  <div class="text-uppercase small">AMOUNT</div>
                 </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input formControlName="amount" type="text" class="form-control form-control-sm text-right"
-                        placeholder="0.00" (input)="onUserChange($event)" />
-                    </div>
-                    <small class="form-text text-muted text-center">Deposit amount ({{
-                      cardForm.get('idleCDOFEI').value.name }})</small>
-                  </div>
+                <div class="col-sm-1 text-center">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="onRemoveCardItem(cardItem)"><small>X</small></button>
                 </div>
               </div>
-
-              <div class="custom-ngx-slider">
-                <ngx-slider formControlName="exposure" [(value)]="exposureFEI" [options]="options"
-                  (userChange)="onUserChange($event)" class="form-control-sm">
-                </ngx-slider>
-              </div>
-
             </div>
-
           </div>
         </div>
       </div>
+
       <div class="d-flex justify-content-center">
-        <button type="submit" [disabled]="disableMint" class="btn btn-sm btn-primary btn-block">Mint</button>
+        <button type="submit" [disabled]="isNotAbleToMint()" class="btn btn-sm btn-primary btn-block">Mint</button>
       </div>
     </form>
   </div>

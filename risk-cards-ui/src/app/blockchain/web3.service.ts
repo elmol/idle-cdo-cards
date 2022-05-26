@@ -13,6 +13,7 @@ declare var window: any;
   providedIn: 'root',
 })
 export class Web3Service {
+
   private web3: Web3;
   private contract: Contract;
 
@@ -30,6 +31,18 @@ export class Web3Service {
       window.ethereum.enable().catch((err) => {
         console.log(err);
       });
+
+      // detect Metamask account change
+      window.ethereum.on('accountsChanged', function (accounts) {
+        console.log('accountsChanges', accounts);
+        window.location.reload();
+      });
+
+      // detect Network account change
+      window.ethereum.on('networkChanged', function (networkId) {
+        console.log('networkChanged', networkId);
+        window.location.reload();
+      });
     } else {
       console.warn('Metamask not found. Install or enable Metamask.');
     }
@@ -42,6 +55,9 @@ export class Web3Service {
   async getERC20Balance(erc20Address: string): Promise<string> {
     const erc20contract = new this.web3.eth.Contract(erc20Abi, erc20Address);
     const acc = await this.getAccount();
+    if(!acc || acc.length === 0) {
+      return "0";
+    }
     return await erc20contract.methods.balanceOf(acc).call({ from: acc });
   }
   async executeTransaction(fnName: string, ...args: any[]): Promise<void> {
@@ -52,6 +68,10 @@ export class Web3Service {
   async call(fnName: string, ...args: any[]) {
     const acc = await this.getAccount();
     return this.contract.methods[fnName](...args).call({ from: acc });
+  }
+
+  async getNetworkId() {
+    return this.web3.eth.net.getId();
   }
 
   onEvents(event: string) {

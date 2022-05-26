@@ -14,11 +14,12 @@ export class CardService {
 
   idleCDOs = idleCDOsData.default;
 
+
   async getCardGroups(): Promise<CardGroup[]> {
     const acc = await this.web3.getAccount();
     const name = await this.web3.call('name');
-    console.log('contract name: ', name, ' account: ', acc);
-    const balance = await this.web3.call('balanceOf', acc);
+    console.log('contract name:', name, ' account:', acc);
+    const balance = await this.getBalance(acc)
     console.log('Idle Risk Cards for balance of Cards: ', balance);
 
     const cards: CardGroup[] = [];
@@ -28,6 +29,15 @@ export class CardService {
       cards.push({ tokenId: tokenId, cards: await this.buildCards(tokenId,cardIndexIds)});
     }
     return cards;
+  }
+
+  async getAccount() {
+    return await this.web3.getAccount();
+  }
+
+  async isValidNetwork() {
+    const network = await this.web3.getNetworkId();
+    return network === 31337;
   }
 
   async getApr(idleCDO, exposure: number) {
@@ -45,15 +55,18 @@ export class CardService {
           .toNumber() / 100;
   }
 
-  createCard(card: CardForm[]) {
+  createCard(cardItems: CardForm[]) {
+    const cardItemToMint: CardForm[] = [... cardItems];
+
+    const _addresses = cardItemToMint.map((item) => item.idleCDOAddress);
+    const _exposures = cardItemToMint.map((item) => toBN(item.exposure).mul(toBN(10).pow(toBN(16))).toString());
+    const _amounts = cardItemToMint.map((item) => toBN(Math.trunc(item.amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))).toString());
+
     this.web3.executeTransaction(
       'mint',
-      card[0].idleCDOAddress,
-      toBN(card[0].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card[0].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16))),
-      card[1].idleCDOAddress,
-      toBN(card[1].exposure).mul(toBN(10).pow(toBN(16))),
-      toBN(Math.trunc(card[1].amount * 10 ** 2)).mul(toBN(10).pow(toBN(16)))
+      _addresses,
+      _amounts,
+      _exposures
     );
   }
 
@@ -117,5 +130,12 @@ export class CardService {
 
   onEvent(name: string) {
     return this.web3.onEvents(name);
+  }
+
+  private async getBalance (acc) {
+    if(!acc || acc.length===0) {
+      return 0;
+    }
+    return await this.web3.call('balanceOf', acc);
   }
 }
